@@ -16,14 +16,13 @@
 ## states
 
 - task_id bigint
-- state integer
+- name string
 
 ## labes
 
-- taks_id bigint
 - name string
 
-## task_groups
+## task_labels
 
 - task_id bigint
 - label_id bigint
