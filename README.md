@@ -22,7 +22,7 @@
 
 - name string
 
-## task_labels
+## labeling
 
 - task_id bigint
 - label_id bigint
