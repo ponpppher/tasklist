@@ -1,24 +1,29 @@
-# README
+#### 本アプリは以下の通りのスキーマにて開発予定です。
+## users
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- name string
+- email string
+- password-digest string
 
-Things you may want to cover:
+## tasks
 
-* Ruby version
+- user_id bigint
+- title string
+- content string
+- priority integer
+- limit datetime
 
-* System dependencies
+## states
 
-* Configuration
+- task_id bigint
+- state integer
 
-* Database creation
+## labes
 
-* Database initialization
+- taks_id bigint
+- name string
 
-* How to run the test suite
+## task_groups
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- task_id bigint
+- label_id bigint
