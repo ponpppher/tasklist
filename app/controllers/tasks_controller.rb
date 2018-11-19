@@ -10,7 +10,7 @@ class TasksController < ApplicationController
   def create
     task = Task.new(task_params)
     task.save!
-    redirect_to root_path
+    redirect_to root_path, notice: "create task"
   end
 
   def edit
@@ -20,7 +20,7 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     @task.update(task_params)
-    redirect_to root_path
+    redirect_to root_path, notice: "update task"
   end
 
   def show
@@ -30,7 +30,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task = Task.find(params[:id]).destroy
-    redirect_to root_path
+    redirect_to root_path, notice: "delete task"
   end
 
   private
