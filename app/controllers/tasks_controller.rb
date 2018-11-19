@@ -5,9 +5,9 @@ class TasksController < ApplicationController
   def new
   end
 
-  def show
+  def edit
   end
 
-  def edit
+  def show
   end
 end
