@@ -1,2 +1,11 @@
 <h1>Tasks#new</h1>
 <p>Find me in app/views/tasks/new.html.erb</p>
+
+<%= form_with(mode:@task, local:true) do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
+  <%= f.label :content %>
+  <%= f.text_field :content %>
+  <%= f.submit %>
+<% end %>
