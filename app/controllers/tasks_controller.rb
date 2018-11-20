@@ -10,7 +10,7 @@ class TasksController < ApplicationController
   def create
     task = Task.new(task_params)
     task.save!
-    redirect_to root_path, notice: "create task"
+    redirect_to root_path, flash:{notice: t('view.create_task')}
   end
 
   def edit
@@ -20,7 +20,7 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     @task.update(task_params)
-    redirect_to root_path, notice: "update task"
+    redirect_to root_path, flash:{notice: t('view.update_task')}
   end
 
   def show
@@ -30,7 +30,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task = Task.find(params[:id]).destroy
-    redirect_to root_path, notice: "delete task"
+    redirect_to root_path, flash:{notice: t('view.delete_task')}
   end
 
   private

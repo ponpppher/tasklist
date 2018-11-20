@@ -1,9 +1,9 @@
-<h1>post your task</h1>
+<h1><%= t('view.post_your_task') %></h1>
 <%= form_with(model:@task, local:true, url: tasks_path) do |f| %>
-  <%= f.label :title %>
+  <%= f.label :title, t('view.title') %>
   <%= f.text_field :title %>
 
-  <%= f.label :content %>
+  <%= f.label :content, t('view.content') %>
   <%= f.text_field :content %>
   <%= f.submit %>
 <% end %>

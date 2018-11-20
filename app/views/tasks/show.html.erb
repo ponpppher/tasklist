@@ -1,7 +1,5 @@
-<h1>task detail page</h1>
-id:<%= @task.id %>
-title:<%= @task.title %>
-content:<%= @task.content %>
+<h1><%= t('view.task_detail_page') %></h1>
+<p><%= t('view.title') %>:<%= @task.title %></p>
+<p><%= t('view.content') %>:<%= @task.content %></p>
 
-<br>
-<%= link_to "back", root_path %>
+<%= link_to t('veiw.back'), root_path %>
