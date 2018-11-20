@@ -3,6 +3,7 @@ require 'rails_helper'
 feature 'タスク管理機能', type: :feature do
   background do
     Task.create!(title:'testtitle', content:'testcontent')
+    Task.create!(title:'komeda', content:'coffiee')
   end
   scenario 'タスク一覧のテスト' do
     visit root_path
@@ -17,10 +18,6 @@ feature 'タスク管理機能', type: :feature do
     click_button 'Create Task'
     expect(page).to have_selector 'li.title', text:'footitle'
     expect(page).to have_selector 'li.content', text:'barcontent'
-  end
-
-  background do
-    Task.create!(title:'komeda', content:'coffiee')
   end
 
   scenario 'タスク詳細のテスト' do
