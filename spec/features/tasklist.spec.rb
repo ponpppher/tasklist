@@ -2,8 +2,9 @@ require 'rails_helper'
 
 feature 'タスク管理機能', type: :feature do
   background do
-    Task.create!(title:'testtitle', content:'testcontent')
-    Task.create!(title:'komeda', content:'coffiee')
+    FactoryBot.create(:task)
+    FactoryBot.create(:task, title: 'goodby yesterday')
+    FactoryBot.create(:second_task)
   end
   scenario 'タスク一覧のテスト' do
     visit root_path
@@ -26,5 +27,9 @@ feature 'タスク管理機能', type: :feature do
     click_link 'show', href: task_path(task)
     expect(page).to have_content 'title:komeda'
     expect(page).to have_content 'content:coffiee'
+  end
+
+  scenario 'タスクが作成日時の降順に並んでいるかのテスト' do
+    visit root_path
   end
 end
