@@ -1,6 +1,4 @@
-<h1>Tasks#new</h1>
-<p>Find me in app/views/tasks/new.html.erb</p>
-
+<h1>post your task</h1>
 <%= form_with(model:@task, local:true, url: tasks_path) do |f| %>
   <%= f.label :title %>
   <%= f.text_field :title %>
