@@ -3,7 +3,7 @@
 <% @task.each do |task| %>
   <li class="title"><%= t('view.title') %>:<%= task.title %></li>
   <li class="content"><%= t('view.content') %>:<%= task.content %></li>
-  <li class="day"><%= t('view.created_day') %>:<%= task.created_at %></li>
+  <li><%= t('view.created_at') %>:<span class="created_at"><%= task.created_at %><span></li>
   <%= link_to t('view.edit'), edit_task_path(task.id) %>
   <%= link_to t('view.delete'), task_path(task.id), method: :delete %>
   <%= link_to t('view.show'), task_path(task.id) %>

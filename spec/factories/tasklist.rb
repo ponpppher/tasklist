@@ -1,9 +1,10 @@
 FactoryBot.define do
-  factory :task do
+  factory :task, class: Task do
     title {'i do'}
     content {'wow wow'}
   end
-  factory :second_task do
+  factory :second_task, class: Task do
     title {'we do'}
     content {'are you ready we go on'}
   end
+end
