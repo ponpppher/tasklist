@@ -7,6 +7,7 @@ ja:
     create_task: "新規タスク作成しました"
     update_task: "タスクを更新しました"
     delete_task: "タスクを削除しました"
+    errors_found!: "個のエラーがあります。"
     title: "タスク名"
     content: "内容"
     created_at: "作成日"

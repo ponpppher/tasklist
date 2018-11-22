@@ -8,9 +8,12 @@ class TasksController < ApplicationController
   end
 
   def create
-    task = Task.new(task_params)
-    task.save!
-    redirect_to root_path, flash:{notice: t('view.create_task')}
+    @task = Task.new(task_params)
+    if @task.save
+      redirect_to root_path, flash:{notice: t('view.create_task')}
+    else
+      render :new
+    end
   end
 
   def edit
