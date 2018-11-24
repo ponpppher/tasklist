@@ -1,10 +1,31 @@
 class TasksController < ApplicationController
   def index
+    @task = Task.new
     if params[:sort_expired]
       @task = Task.all.order(limit_datetime: :desc)
+    elsif params.include?(:task) && params[:task].include?(:search)
+      case params[:task][:status_search]
+      when "yet" then
+        puts "yet"
+        @task = Task.all.order(limit_datetime: :desc)
+      when "start" then
+        puts "start"
+        @task = Task.all.order(limit_datetime: :desc)
+      when "complete" then
+        puts "comp"
+        @task = Task.all.order(limit_datetime: :desc)
+      else
+        puts "else"
+        @task = Task.all.order(created_at: :desc)
+      end
+      if params[:task][:title_search]
+        puts "titlesearch"
+        @task = @task.where("title Like ?", "%#{params[:task][:title_search]}%")
+      end
     else
       @task = Task.all.order(created_at: :desc)
     end
+
   end
 
   def new

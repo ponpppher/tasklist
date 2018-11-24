@@ -1,5 +1,19 @@
 <h1><%= t("view.your_task_list") %></h1>
 
+<%= link_to t('view.post_your_task'), new_task_path %>
+<%= link_to t('view.sort_expired'), tasks_path(sort_expired: "true") %>
+
+<h3><%= t("view.search_form")%></h3>
+<%= form_with(model:@task , local:true, url:tasks_path, method: :get) do |f| %>
+  <%= f.label :title_search, t("view.title") %>
+  <%= f.text_field :title_search %>
+  <%= f.hidden_field :search, value: 'true' %>
+
+  <%= f.label :status_search, t("view.status") %>
+  <%= f.select :status_search, {"未着手" => :yet , "着手" => :start, "完了" => :complete}, include_blank: true, selected: "" %>
+  <%= f.submit t('view.search') %>
+<% end %>
+
 <ul>
 <% @task.each do |task| %>
   <p class="title"><%= t('view.title') %>:<%= task.title %></p>
@@ -12,8 +26,3 @@
   <hr style="border:1px solid blue;" />
 <% end %>
 </ul>
-
-<%= link_to t('view.post_your_task'), new_task_path %>
-<%= link_to t('view.sort_expired'), tasks_path(sort_expired: "true") %>
-<%#
-<%= link_to t('view.sort_expired'), tasks_path %>
