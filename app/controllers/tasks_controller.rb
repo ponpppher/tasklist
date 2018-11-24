@@ -7,22 +7,26 @@ class TasksController < ApplicationController
       case params[:task][:status_search]
       when "yet" then
         puts "yet"
-        @task = Task.all.order(limit_datetime: :desc)
+        @task = @task.where(status: "yet")
+        puts @task
       when "start" then
         puts "start"
         @task = Task.all.order(limit_datetime: :desc)
+        @task = @task.where(status: "start")
       when "complete" then
         puts "comp"
         @task = Task.all.order(limit_datetime: :desc)
+        @task = @task.where(status: "complete")
       else
         puts "else"
         @task = Task.all.order(created_at: :desc)
       end
-      if params[:task][:title_search]
+      unless params[:task][:title_search].blank?
         puts "titlesearch"
         @task = @task.where("title Like ?", "%#{params[:task][:title_search]}%")
       end
     else
+      puts "other"
       @task = Task.all.order(created_at: :desc)
     end
 
@@ -64,7 +68,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :content, :limit_datetime)
+    params.require(:task).permit(:title, :content, :status, :limit_datetime)
   end
 
 end

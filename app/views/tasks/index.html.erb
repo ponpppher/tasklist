@@ -1,4 +1,4 @@
-<h1><%= t("view.your_task_list") %></h1>
+<h1><%= link_to t("view.your_task_list"), root_path %></h1>
 
 <%= link_to t('view.post_your_task'), new_task_path %>
 <%= link_to t('view.sort_expired'), tasks_path(sort_expired: "true") %>
@@ -18,6 +18,7 @@
 <% @task.each do |task| %>
   <p class="title"><%= t('view.title') %>:<%= task.title %></p>
   <p class="content"><%= t('view.content') %>:<%= task.content %></p>
+  <p class="status"><%= t('view.status') %>:<%= task.status %></p>
   <p><%= t('view.created_at') %>:<span class="created_at"><%= task.created_at %><span></p>
   <p><%= t('view.limit_datetime') %>:<span class="limit_datetime"><%= task.limit_datetime %><span></p>
   <%= link_to t('view.edit'), edit_task_path(task.id) %>
