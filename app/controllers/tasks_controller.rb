@@ -1,33 +1,30 @@
 class TasksController < ApplicationController
+  before_action :set_task, only:[:edit, :update, :show, :destroy]
+  NOT_YET = I18n.t('view.not_yet_started').freeze
+  START = I18n.t('view.start').freeze
+  COMPLETE= I18n.t('view.complete').freeze
+
   def index
     @task = Task.new
     if params[:sort_expired]
       @task = Task.all.order(limit_datetime: :desc)
     elsif params.include?(:task) && params[:task].include?(:search)
       case params[:task][:status_search]
-      when "yet" then
-        puts "yet"
-        @task = @task.where(status: "yet")
-        puts @task
-      when "start" then
-        puts "start"
-        @task = Task.all.order(limit_datetime: :desc)
-        @task = @task.where(status: "start")
-      when "complete" then
-        puts "comp"
-        @task = Task.all.order(limit_datetime: :desc)
-        @task = @task.where(status: "complete")
+      when NOT_YET then
+        @task = Task.not_yet_started
+      when START then
+        @task = Task.start
+      when COMPLETE then
+        @task = Task.complete
       else
-        puts "else"
-        @task = Task.all.order(created_at: :desc)
+        @task = Task.all
       end
       unless params[:task][:title_search].blank?
-        puts "titlesearch"
-        @task = @task.where("title Like ?", "%#{params[:task][:title_search]}%")
+        title = params[:task][:title_search]
+        @task = @task.where("title LIKE?", "%#{title}%")
       end
     else
-      puts "other"
-      @task = Task.all.order(created_at: :desc)
+      @task = Task.all
     end
 
   end
@@ -46,22 +43,19 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = Task.find(params[:id])
   end
 
   def update
-    @task = Task.find(params[:id])
     @task.update(task_params)
     redirect_to root_path, flash:{notice: t('view.update_task')}
   end
 
   def show
-    @task = Task.find(params[:id])
     render :show
   end
 
   def destroy
-    @task = Task.find(params[:id]).destroy
+    @task.destroy
     redirect_to root_path, flash:{notice: t('view.delete_task')}
   end
 
@@ -69,6 +63,10 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:title, :content, :status, :limit_datetime)
+  end
+
+  def set_task
+    @task = Task.find(params[:id])
   end
 
 end
