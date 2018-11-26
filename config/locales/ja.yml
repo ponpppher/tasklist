@@ -28,6 +28,12 @@ ja:
     delete: "削除"
     show: "詳細"
     back: "戻る"
+  enums:
+    task:
+      priority:
+        low: "低"
+        middle: "中"
+        heigh: "高"
   activerecord:
     errors:
       messages:
