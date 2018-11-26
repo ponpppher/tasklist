@@ -7,6 +7,7 @@
 <%= form_with(model:@task , local:true, url:tasks_path, method: :get) do |f| %>
   <%= f.label :title_search, t("view.title") %>
   <%= f.text_field :title_search %>
+
   <%= f.hidden_field :search, value: 'true' %>
 
   <%= f.label :status_search, t("view.status") %>
@@ -14,6 +15,14 @@
     {"未着手" => t('view.not_yet_started'), "着手" => t('view.start'), "完了" => t('view.complete')}, \
     include_blank: true, selected: "" \
   %>
+
+<% if false %>
+  <%= f.label :priority, t("view.priority") %>
+  <%= f.select :priority, \
+    {"未着手" => t('view.high_priority'), "" => t('view.start'), "完了" => t('view.complete')}, \
+    include_blank: true, selected: "" \
+  %>
+<% end %>
 
   <%= f.submit t('view.search') %>
 <% end %>
@@ -23,6 +32,11 @@
   <p class="title"><%= t('view.title') %>:<%= task.title %></p>
   <p class="content"><%= t('view.content') %>:<%= task.content %></p>
   <p class="status"><%= t('view.status') %>:<%= task.status %></p>
+  
+<% if false %>
+  <p class="priority"><%= t('view.priority') %>:<%= task.priority %></p>
+<% end %>
+
   <p><%= t('view.created_at') %>:<span class="created_at"><%= task.created_at %><span></p>
   <p><%= t('view.limit_datetime') %>:<span class="limit_datetime"><%= task.limit_datetime %><span></p>
   <%= link_to t('view.edit'), edit_task_path(task.id) %>

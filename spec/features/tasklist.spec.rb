@@ -19,11 +19,13 @@ feature 'タスク管理機能', type: :feature do
     visit new_task_path
     fill_in 'タスク名', with: 'footitle'
     fill_in '内容', with: 'barcontent'
+    select '高', from: '優先度'
     date_str = '2018-12-25 00:00:00 +0900'
     fill_in '終了期限', with: DateTime.parse(date_str)
     click_button('登録する')
     expect(page).to have_selector 'p.title', text:'footitle'
     expect(page).to have_selector 'p.content', text:'barcontent'
+    expect(page).to have_selector 'p.priority', text:'高'
     expect(page).to have_selector 'span.limit_datetime', text:'2018-12-25 00:00:00 +0900'
   end
 
@@ -60,5 +62,12 @@ feature 'タスク管理機能', type: :feature do
       puts all('span.limit_datetime')[i].to_s
       expect(all('span.limit_datetime')[i]).to have_text match_date[i]
     end
+  end
+
+  scenario '優先度の登録' do
+    visit new_task_path
+
+    fill_in ''
+
   end
 end

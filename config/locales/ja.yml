@@ -3,6 +3,7 @@ ja:
   view:
     your_task_list: "タスク管理一覧"
     post_your_task: "タスク登録"
+    edit_your_task: "タスク編集"
     task_detail_page: "タスク詳細"
     search_form: "タスク検索"
     search: "検索"
@@ -17,6 +18,10 @@ ja:
     not_yet_started: "未着手"
     start: "着手"
     complete: "完了"
+    priority: "優先度"
+    high_priority: "高"
+    middle_priority: "中"
+    low_priority: "低"
     created_at: "作成日"
     limit_datetime: "終了期限"
     edit: "編集"

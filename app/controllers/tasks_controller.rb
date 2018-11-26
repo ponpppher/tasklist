@@ -17,14 +17,14 @@ class TasksController < ApplicationController
       when COMPLETE then
         @task = Task.complete
       else
-        @task = Task.all
+        @task = Task.all.order(created_at: :desc)
       end
       unless params[:task][:title_search].blank?
         title = params[:task][:title_search]
         @task = @task.where("title LIKE?", "%#{title}%")
       end
     else
-      @task = Task.all
+      @task = Task.all.order(created_at: :desc)
     end
 
   end
