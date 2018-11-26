@@ -11,14 +11,4 @@
   </div>
 <% end %>
 
-<%= form_with(model:@task, local:true, url: tasks_path) do |f| %>
-  <%= f.label :title, t('view.title') %>
-  <%= f.text_field :title %>
-
-  <%= f.label :content, t('view.content') %>
-  <%= f.text_field :content %>
-
-  <%= f.label :limit_datetime, t('view.limit_datetime') %>
-  <%= f.date_field :limit_datetime %>
-  <%= f.submit %>
-<% end %>
+<%= render 'form' %>

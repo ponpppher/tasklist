@@ -1,0 +1,27 @@
+<%= form_with(model:@task, local:true, url: choose_new_or_edit ) do |f| %>
+  <%= f.label :title, t('view.title') %>
+  <%= f.text_field :title %>
+
+  <%= f.label :content, t('view.content') %>
+  <%= f.text_field :content %>
+
+  <%= f.label :status, t('view.status') %>
+  <%= f.select :status , \
+    {"未着手" => t('view.not_yet_started'), "着手" => t('view.start'), "完了" => t('view.complete')},\
+    include_blank: true, selected: ""\
+  %>
+
+<% if false %>
+  <%= f.label :priority, t('view.priority') %>
+  <%= f.select :priority, \
+    {"未着手" => t('view.not_yet_started'), "着手" => t('view.start'), "完了" => t('view.complete')},\
+    include_blank: true, selected: ""\
+  %>
+<% end %>
+
+  <%= f.label :limit_datetime, t('view.limit_datetime') %>
+  <%= f.date_field :limit_datetime %>
+  <%= f.submit %>
+<% end %>
+
+<%= link_to t('view.back'), root_path %>
