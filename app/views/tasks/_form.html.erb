@@ -11,13 +11,10 @@
     include_blank: true, selected: ""\
   %>
 
-<% if false %>
   <%= f.label :priority, t('view.priority') %>
   <%= f.select :priority, \
-    {"未着手" => t('view.not_yet_started'), "着手" => t('view.start'), "完了" => t('view.complete')},\
-    include_blank: true, selected: ""\
+    Task.priorities_i18n.invert
   %>
-<% end %>
 
   <%= f.label :limit_datetime, t('view.limit_datetime') %>
   <%= f.date_field :limit_datetime %>

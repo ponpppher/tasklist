@@ -11,6 +11,7 @@ ja:
     update_task: "タスクを更新しました"
     delete_task: "タスクを削除しました"
     sort_expired: "終了期限でソートする"
+    sort_priority: "優先順位でソートする"
     errors_found!: "個のエラーがあります。"
     title: "タスク名"
     content: "内容"
@@ -33,7 +34,7 @@ ja:
       priority:
         low: "低"
         middle: "中"
-        heigh: "高"
+        high: "高"
   activerecord:
     errors:
       messages:

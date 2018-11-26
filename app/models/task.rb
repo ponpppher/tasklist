@@ -8,7 +8,7 @@ class Task < ApplicationRecord
   validates:limit_datetime, presence:true
   validates:priority, presence:true
 
-  enum priority: [ :low, :middle, :high]
+  enum priority: { low: 0, middle: 1, high: 2 }
 
   scope :not_yet_started, -> {where(status: NOT_YET)}
   scope :start, -> {where(status: START)}
