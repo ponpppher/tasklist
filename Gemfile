@@ -26,6 +26,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'selenium-webdriver'
+  gem 'enum_help'
 end
 
 group :development do

@@ -8,6 +8,9 @@ class TasksController < ApplicationController
     @task = Task.new
     if params[:sort_expired]
       @task = Task.all.order(limit_datetime: :desc)
+    elsif params[:sort_priority]
+      @task = Task.order(priority: :desc)
+      @task = @task.order(created_at: :desc)
     elsif params.include?(:task) && params[:task].include?(:search)
       case params[:task][:status_search]
       when NOT_YET then
@@ -62,7 +65,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :content, :status, :limit_datetime)
+    params.require(:task).permit(:title, :content, :status, :priority, :limit_datetime)
   end
 
   def set_task

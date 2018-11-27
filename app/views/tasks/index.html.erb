@@ -2,6 +2,7 @@
 
 <%= link_to t('view.post_your_task'), new_task_path %>
 <%= link_to t('view.sort_expired'), tasks_path(sort_expired: "true") %>
+<%= link_to t('view.sort_priority'), tasks_path(sort_priority: "true") %>
 
 <h3><%= t("view.search_form")%></h3>
 <%= form_with(model:@task , local:true, url:tasks_path, method: :get) do |f| %>
@@ -16,14 +17,6 @@
     include_blank: true, selected: "" \
   %>
 
-<% if false %>
-  <%= f.label :priority, t("view.priority") %>
-  <%= f.select :priority, \
-    {"未着手" => t('view.high_priority'), "" => t('view.start'), "完了" => t('view.complete')}, \
-    include_blank: true, selected: "" \
-  %>
-<% end %>
-
   <%= f.submit t('view.search') %>
 <% end %>
 
@@ -33,9 +26,7 @@
   <p class="content"><%= t('view.content') %>:<%= task.content %></p>
   <p class="status"><%= t('view.status') %>:<%= task.status %></p>
   
-<% if false %>
-  <p class="priority"><%= t('view.priority') %>:<%= task.priority %></p>
-<% end %>
+  <p class="priority"><%= t('view.priority') %>:<%= task.priority_i18n %></p>
 
   <p><%= t('view.created_at') %>:<span class="created_at"><%= task.created_at %><span></p>
   <p><%= t('view.limit_datetime') %>:<span class="limit_datetime"><%= task.limit_datetime %><span></p>

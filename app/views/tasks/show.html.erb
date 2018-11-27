@@ -2,6 +2,7 @@
 <p><%= t('view.title') %>:<%= @task.title %></p>
 <p><%= t('view.content') %>:<%= @task.content %></p>
 <p><%= t('view.status') %>:<%= @task.status %></p>
+<p><%= t('view.priority') %>:<%= @task.priority_i18n %></p>
 <p><%= t('view.limit_datetime') %>:<%= @task.limit_datetime %></p>
 
 <%= link_to t('veiw.back'), root_path %>
