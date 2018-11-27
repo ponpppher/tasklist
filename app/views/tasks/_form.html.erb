@@ -1,41 +1,37 @@
 <div class="container">
-  <form class="form-inline">
-      <%= form_with(model:@task, local:true, url: choose_new_or_edit ) do |f| %>
-        <div class ="form-group">
-          <%= f.label :title, t('view.title') %>
-          <%= f.text_field :title, { class: 'form-control', placeholder:"Title" } %>
-        </div>
+  <%= form_with(model:@task, local:true, url: choose_new_or_edit ) do |f| %>
 
-        <div class ="form-group">
-          <%= f.label :content, t('view.content') %>
-          <%= f.text_area :content, { class: 'form-control', placeholder:"Task Content" } %>
-        </div>
-
-        <br />
-        <div class ="form-group">
-          <%= f.label :status, t('view.status') %>
-          <%= f.select :status , \
-            {"未着手" => t('view.not_yet_started'), "着手" => t('view.start'), "完了" => t('view.complete')},\
-            #include_blank: true, selected: "" \
-            include_blank: true, selected: "", class:"form-control"\
-          %>
-        </div>
-
-        <div class ="form-group">
-          <%= f.label :priority, t('view.priority') %>
-          <%= f.select :priority, Task.priorities_i18n.invert, class:"form-control" %>
-        </div>
-
-        <div class ="form-group">
-          <%= f.label :limit_datetime, t('view.limit_datetime') %>
-          <%= f.date_field :limit_datetime %>
-        </div>
-
-        <br />
-        <%= f.submit class: 'btn btn-default' %>
-      <% end %>
+    <div class ="form-group">
+      <%= f.label :title, t('view.title') %>
+      <%= f.text_field :title, { class: 'form-control', placeholder:"Title" } %>
     </div>
-  </form>
 
+    <div class ="form-group">
+      <%= f.label :content, t('view.content') %>
+      <%= f.text_area :content, { class: 'form-control', placeholder:"Task Content" } %>
+    </div>
+
+    <br />
+    <div class ="form-group">
+      <%= f.label :status, t('view.status') %>
+      <%= f.select :status , \
+        {"未着手" => t('view.not_yet_started'), "着手" => t('view.start'), "完了" => t('view.complete')},\
+        include_blank: true, selected: "", class:"form-control"\
+      %>
+    </div>
+
+    <div class ="form-group">
+      <%= f.label :priority, t('view.priority') %>
+      <%= f.select :priority, Task.priorities_i18n.invert, class:"form-control" %>
+    </div>
+
+    <div class ="form-group">
+      <%= f.label :limit_datetime, t('view.limit_datetime') %>
+      <%= f.date_field :limit_datetime %>
+    </div>
+
+    <br />
+    <%= f.submit class: 'btn btn-default' %>
+  <% end %>
   <div class='btn btn-default'><%= link_to t('view.back'), root_path %></div>
 </div>
