@@ -32,16 +32,16 @@
     <table class="table table-hover">
       <tbody>
         <tr>
-          <th class="col-md-2"><%= t('view.title') %></th><td><%= task.title %></td>
+          <th class="col-md-2"><%= t('view.title') %></th><td class="title"><%= task.title %></td>
         </tr>
         <tr>
-          <th class="col-md-2"><%= t('view.content') %></th><td><%= task.content %></td>
+          <th class="col-md-2"><%= t('view.content') %></th><td class="content"><%= task.content %></td>
         </tr>
         <tr>
-          <th class="col-md-2"><%= t('view.status') %></th><td><%= task.status %></td>
+          <th class="col-md-2"><%= t('view.status') %></th><td class="status"><%= task.status %></td>
         </tr>
         <tr>
-          <th class="col-md-2"><%= t('view.priority') %></th><td><%= task.priority_i18n %></td>
+          <th class="col-md-2"><%= t('view.priority') %></th><td class="priority"><%= task.priority_i18n %></td>
         </tr>
         <tr>
           <th class ="col-md-2"><%= t('view.created_at') %></th><td><span class="created_at"><%= task.created_at %><span></td>
