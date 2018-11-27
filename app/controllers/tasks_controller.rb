@@ -29,6 +29,7 @@ class TasksController < ApplicationController
     else
       @task = Task.all.order(created_at: :desc)
     end
+    @task = @task.page(params[:page]).per(3)
 
   end
 

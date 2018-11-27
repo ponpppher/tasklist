@@ -6,13 +6,15 @@ feature 'タスク管理機能', type: :feature do
     FactoryBot.create(:task, title:'testtitle', content: 'testcontent', limit_datetime: '20181130')
     FactoryBot.create(:task, title:'one', content: 'testcontent', priority: "high", limit_datetime: '20181201')
     FactoryBot.create(:task, title:'two', content: 'testcontent', priority: "high", limit_datetime: '20181215')
-    FactoryBot.create(:task, title:'three', content: 'testcontent', priority: "low", limit_datetime: '20181220')
+    FactoryBot.create(:task, title:'three', content: 'threecontent', priority: "low", limit_datetime: '20181220')
   end
 
   scenario 'タスク一覧のテスト' do
     visit root_path
-    expect(page).to have_selector 'p.title', text:'testtitle'
-    expect(page).to have_selector 'p.content', text:'testcontent'
+    expect(page).to have_selector 'p.title', text:'タスク名:three'
+    expect(page).to have_selector 'p.content', text:'内容:threecontent'
+    expect(page).to have_selector 'p.status', text:'状態:'
+    expect(page).to have_selector 'p.priority', text:'優先度:低'
   end
 
   scenario 'タスク作成のテスト' do
@@ -31,20 +33,28 @@ feature 'タスク管理機能', type: :feature do
 
   scenario 'タスク詳細のテスト' do
     visit root_path
-    task = Task.find_by(title: "testtitle")
+    task = Task.find_by(title: "three")
     click_link '詳細', href: task_path(task)
-    expect(page).to have_content 'タスク名:testtitle'
-    expect(page).to have_content '内容:testcontent'
-    expect(page).to have_content '終了期限:2018-11-30 00:00:00 +0900'
+    expect(page).to have_content 'タスク名:three'
+    expect(page).to have_content '内容:threecontent'
+    expect(page).to have_content '状態:'
+    expect(page).to have_content '優先度:低'
+    expect(page).to have_content '終了期限:2018-12-20 00:00:00 +0900'
   end
 
   scenario 'タスクが作成日時の降順に並んでいるかのテスト' do
     visit root_path
     mach_str = ['testtitle', 'one', 'two', 'three'].reverse
+    page_index = 2
 
-    for i in 0..5 do
+    for i in 0..page_index do
       expect(all('p.title')[i]).to have_text mach_str[i]
     end
+
+    click_link 'Next'
+
+    nextpage=page_index+1
+    expect(all('p.title')[0]).to have_text mach_str[nextpage]
   end
 
   scenario 'タスクが終了期限が降順かのテスト' do
@@ -55,12 +65,19 @@ feature 'タスク管理機能', type: :feature do
       '2018-12-01 00:00:00 +0900',
       '2018-11-30 00:00:00 +0900',
     ]
+    page_index=2
 
     click_link '終了期限でソートする'
 
-    for i in 0..5 do
+    for i in 0..page_index do
       expect(all('span.limit_datetime')[i]).to have_text match_date[i]
     end
+
+    click_link 'Next'
+
+    nextpage=page_index+1
+    expect(all('span.limit_datetime')[0]).to have_text match_date[nextpage]
+
   end
 
   scenario '優先度でのソート' do
@@ -68,11 +85,18 @@ feature 'タスク管理機能', type: :feature do
       'two','one','testtitle','three'
     ]
     visit root_path
+    page_index = 2
 
     click_link '優先順位でソートする'
 
-    for i in 0..3 do
+    for i in 0..page_index do
       expect(all('p.title')[i]).to have_text match_date[i]
     end
+
+    click_link 'Next'
+
+    nextpage=page_index+1
+    expect(all('p.title')[0]).to have_text match_date[nextpage]
+
   end
 end
