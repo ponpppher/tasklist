@@ -1,24 +1,41 @@
-<%= form_with(model:@task, local:true, url: choose_new_or_edit ) do |f| %>
-  <%= f.label :title, t('view.title') %>
-  <%= f.text_field :title %>
+<div class="container">
+  <form class="form-inline">
+      <%= form_with(model:@task, local:true, url: choose_new_or_edit ) do |f| %>
+        <div class ="form-group">
+          <%= f.label :title, t('view.title') %>
+          <%= f.text_field :title, { class: 'form-control', placeholder:"Title" } %>
+        </div>
 
-  <%= f.label :content, t('view.content') %>
-  <%= f.text_field :content %>
+        <div class ="form-group">
+          <%= f.label :content, t('view.content') %>
+          <%= f.text_area :content, { class: 'form-control', placeholder:"Task Content" } %>
+        </div>
 
-  <%= f.label :status, t('view.status') %>
-  <%= f.select :status , \
-    {"未着手" => t('view.not_yet_started'), "着手" => t('view.start'), "完了" => t('view.complete')},\
-    include_blank: true, selected: ""\
-  %>
+        <br />
+        <div class ="form-group">
+          <%= f.label :status, t('view.status') %>
+          <%= f.select :status , \
+            {"未着手" => t('view.not_yet_started'), "着手" => t('view.start'), "完了" => t('view.complete')},\
+            #include_blank: true, selected: "" \
+            include_blank: true, selected: "", class:"form-control"\
+          %>
+        </div>
 
-  <%= f.label :priority, t('view.priority') %>
-  <%= f.select :priority, \
-    Task.priorities_i18n.invert
-  %>
+        <div class ="form-group">
+          <%= f.label :priority, t('view.priority') %>
+          <%= f.select :priority, Task.priorities_i18n.invert, class:"form-control" %>
+        </div>
 
-  <%= f.label :limit_datetime, t('view.limit_datetime') %>
-  <%= f.date_field :limit_datetime %>
-  <%= f.submit %>
-<% end %>
+        <div class ="form-group">
+          <%= f.label :limit_datetime, t('view.limit_datetime') %>
+          <%= f.date_field :limit_datetime %>
+        </div>
 
-<%= link_to t('view.back'), root_path %>
+        <br />
+        <%= f.submit class: 'btn btn-default' %>
+      <% end %>
+    </div>
+  </form>
+
+  <div class='btn btn-default'><%= link_to t('view.back'), root_path %></div>
+</div>

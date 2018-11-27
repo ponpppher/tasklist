@@ -1,40 +1,60 @@
-<h1><%= link_to t("view.your_task_list"), root_path %></h1>
+<div class="container">
+  <h1><%= link_to t("view.your_task_list"), root_path %></h1>
+  <div class="btn btn-default"><%= link_to t('view.post_your_task'), new_task_path %></div>
+  <div class="btn btn-default"><%= link_to t('view.sort_expired'), tasks_path(sort_expired: "true") %></div>
+  <div class="btn btn-default"><%= link_to t('view.sort_priority'), tasks_path(sort_priority: "true") %></div>
 
-<%= link_to t('view.post_your_task'), new_task_path %>
-<%= link_to t('view.sort_expired'), tasks_path(sort_expired: "true") %>
-<%= link_to t('view.sort_priority'), tasks_path(sort_priority: "true") %>
+  <h3><%= t("view.search_form")%></h3>
+  <%= form_with(model:@task , local:true, url:tasks_path, method: :get) do |f| %>
+    <div class ="form-group">
+      <%= f.label :title_search, t("view.title"), { class: 'sr-only' } %>
+      <%= f.text_field :title_search, { class: 'form-control', placeholder: 'Title Name' } %>
+    </div>
 
-<h3><%= t("view.search_form")%></h3>
-<%= form_with(model:@task , local:true, url:tasks_path, method: :get) do |f| %>
-  <%= f.label :title_search, t("view.title") %>
-  <%= f.text_field :title_search %>
+    <%= f.hidden_field :search, value: 'true' %>
 
-  <%= f.hidden_field :search, value: 'true' %>
+    <div class ="form-group">
+      <%= f.label :status_search, t("view.status") %>
 
-  <%= f.label :status_search, t("view.status") %>
-  <%= f.select :status_search, \
-    {"未着手" => t('view.not_yet_started'), "着手" => t('view.start'), "完了" => t('view.complete')}, \
-    include_blank: true, selected: "" \
-  %>
+      <%= f.select :status_search,{
+          "未着手" => t('view.not_yet_started'),
+          "着手" => t('view.start'),
+          "完了" => t('view.complete'),
+        },include_blank: true,selected: "", class:'form-control' %>
 
-  <%= f.submit t('view.search') %>
-<% end %>
+    </div>
 
-<ul>
-<% @task.each do |task| %>
-  <p class="title"><%= t('view.title') %>:<%= task.title %></p>
-  <p class="content"><%= t('view.content') %>:<%= task.content %></p>
-  <p class="status"><%= t('view.status') %>:<%= task.status %></p>
-  
-  <p class="priority"><%= t('view.priority') %>:<%= task.priority_i18n %></p>
+    <%= f.submit t('view.search'), class: 'btn btn-default' %>
+  <% end %>
 
-  <p><%= t('view.created_at') %>:<span class="created_at"><%= task.created_at %><span></p>
-  <p><%= t('view.limit_datetime') %>:<span class="limit_datetime"><%= task.limit_datetime %><span></p>
-  <%= link_to t('view.edit'), edit_task_path(task.id) %>
-  <%= link_to t('view.delete'), task_path(task.id), method: :delete %>
-  <%= link_to t('view.show'), task_path(task.id) %>
-  <hr style="border:1px solid blue;" />
-<% end %>
-</ul>
-
-<%= paginate @task %>
+  <ul>
+  <% @task.each do |task| %>
+    <table class="table table-hover">
+      <tbody>
+        <tr>
+          <th class="col-md-2"><%= t('view.title') %></th><td><%= task.title %></td>
+        </tr>
+        <tr>
+          <th class="col-md-2"><%= t('view.content') %></th><td><%= task.content %></td>
+        </tr>
+        <tr>
+          <th class="col-md-2"><%= t('view.status') %></th><td><%= task.status %></td>
+        </tr>
+        <tr>
+          <th class="col-md-2"><%= t('view.priority') %></th><td><%= task.priority_i18n %></td>
+        </tr>
+        <tr>
+          <th class ="col-md-2"><%= t('view.created_at') %></th><td><span class="created_at"><%= task.created_at %><span></td>
+        </tr>
+        <tr>
+          <th class="col-md-2"><%= t('view.limit_datetime') %></td><td><span class="limit_datetime"><%= task.limit_datetime %><span></td>
+        </tr>
+        <td class="btn btn-default"><%= link_to t('view.edit'), edit_task_path(task.id) %></td>
+        <td class="btn btn-default"><%= link_to t('view.delete'), task_path(task.id), method: :delete %></td>
+        <td class="btn btn-default"><%= link_to t('view.show'), task_path(task.id) %></td>
+      </tbody>
+    </table>
+  <% end %>
+  </ul>
+  <%= paginate @task %>
+</div>
