@@ -13,4 +13,6 @@ class Task < ApplicationRecord
   scope :not_yet_started, -> {where(status: NOT_YET)}
   scope :start, -> {where(status: START)}
   scope :complete, -> {where(status: COMPLETE)}
+
+  belongs_to :user
 end
