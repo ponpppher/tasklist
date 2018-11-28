@@ -5,29 +5,36 @@ class TasksController < ApplicationController
   COMPLETE= I18n.t('view.complete').freeze
 
   def index
-    @task = Task.new
     if params[:sort_expired]
-      @task = Task.all.order(limit_datetime: :desc)
+      @task = current_user.tasks.order(limit_datetime: :desc)
+      #@task = Task.all.order(limit_datetime: :desc)
     elsif params[:sort_priority]
-      @task = Task.order(priority: :desc)
+      @task = current_user.tasks.order(priority: :desc)
       @task = @task.order(created_at: :desc)
     elsif params.include?(:task) && params[:task].include?(:search)
       case params[:task][:status_search]
       when NOT_YET then
-        @task = Task.not_yet_started
+        @task = current_user.tasks.not_yet_started
+        #@task = Task.not_yet_started
       when START then
-        @task = Task.start
+        @task = current_user.tasks.start
+        #@task = Task.start
       when COMPLETE then
-        @task = Task.complete
+        @task = current_user.tasks.complete
+        #@task = Task.complete
       else
-        @task = Task.all.order(created_at: :desc)
+        @task = current_user.tasks.order(created_at: :desc)
       end
       unless params[:task][:title_search].blank?
         title = params[:task][:title_search]
         @task = @task.where("title LIKE?", "%#{title}%")
       end
     else
-      @task = Task.all.order(created_at: :desc)
+      if current_user
+        @task = current_user.tasks.order(created_at: :desc)
+      else
+        @task = Task.order(created_at: :desc)
+      end
     end
     @task = @task.page(params[:page]).per(3)
 
@@ -73,7 +80,7 @@ class TasksController < ApplicationController
   end
 
   def set_task
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
 
 end
