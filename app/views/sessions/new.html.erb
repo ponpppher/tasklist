@@ -1,0 +1,13 @@
+<h1>login</h1>
+
+<%= h(flash[:danger]) %>
+
+<%= form_with(scope: :session, local:true, url: sessions_path) do |f| %>
+<%= f.label :email %>
+<%= f.email_field :email %>
+
+<%= f.label :password %>
+<%= f.password_field :password %>
+
+<%= f.submit %>
+<% end %>
