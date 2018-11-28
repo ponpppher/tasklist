@@ -1,4 +1,15 @@
-<h1>newpage</h1>
+<h1>sign up</h1>
+
+<% if @user.errors.any? %>
+  <div id="errors_explanation">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohabited this @user from being saved</h2>
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <%= form_with(model:@user, local:true) do |f| %>
   
