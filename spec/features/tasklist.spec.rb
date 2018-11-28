@@ -6,28 +6,30 @@ feature 'タスク管理機能', type: :feature do
     FactoryBot.create(:task, title:'testtitle', content: 'testcontent', limit_datetime: '20181130')
     FactoryBot.create(:task, title:'one', content: 'testcontent', priority: "high", limit_datetime: '20181201')
     FactoryBot.create(:task, title:'two', content: 'testcontent', priority: "high", limit_datetime: '20181215')
-    FactoryBot.create(:task, title:'three', content: 'threecontent', priority: "low", limit_datetime: '20181220')
+    FactoryBot.create(:task, title:'three', content: 'threecontent', status: "完了", priority: "low", limit_datetime: '20181220')
   end
 
   scenario 'タスク一覧のテスト' do
     visit root_path
-    expect(page).to have_selector 'p.title', text:'タスク名:three'
-    expect(page).to have_selector 'p.content', text:'内容:threecontent'
-    expect(page).to have_selector 'p.status', text:'状態:'
-    expect(page).to have_selector 'p.priority', text:'優先度:低'
+    expect(page).to have_selector 'td.title', text:'three'
+    expect(page).to have_selector 'td.content', text:'threecontent'
+    expect(page).to have_selector 'td.status', text:'完了'
+    expect(page).to have_selector 'td.priority', text:'低'
   end
 
   scenario 'タスク作成のテスト' do
     visit new_task_path
     fill_in 'タスク名', with: 'footitle'
     fill_in '内容', with: 'barcontent'
+    select '着手', from: '状態'
     select '低', from: '優先度'
     date_str = '2018-12-25 00:00:00 +0900'
     fill_in '終了期限', with: DateTime.parse(date_str)
     click_button('登録する')
-    expect(page).to have_selector 'p.title', text:'footitle'
-    expect(page).to have_selector 'p.content', text:'barcontent'
-    expect(page).to have_selector 'p.priority', text:'低'
+    expect(page).to have_selector 'td.title', text:'footitle'
+    expect(page).to have_selector 'td.content', text:'barcontent'
+    expect(page).to have_selector 'td.status', text:'着手'
+    expect(page).to have_selector 'td.priority', text:'低'
     expect(page).to have_selector 'span.limit_datetime', text:'2018-12-25 00:00:00 +0900'
   end
 
@@ -35,11 +37,11 @@ feature 'タスク管理機能', type: :feature do
     visit root_path
     task = Task.find_by(title: "three")
     click_link '詳細', href: task_path(task)
-    expect(page).to have_content 'タスク名:three'
-    expect(page).to have_content '内容:threecontent'
-    expect(page).to have_content '状態:'
-    expect(page).to have_content '優先度:低'
-    expect(page).to have_content '終了期限:2018-12-20 00:00:00 +0900'
+    expect(page).to have_content 'three'
+    expect(page).to have_content 'threecontent'
+    expect(page).to have_content '完了'
+    expect(page).to have_content '低'
+    expect(page).to have_content '2018-12-20 00:00:00 +0900'
   end
 
   scenario 'タスクが作成日時の降順に並んでいるかのテスト' do
@@ -48,13 +50,13 @@ feature 'タスク管理機能', type: :feature do
     page_index = 2
 
     for i in 0..page_index do
-      expect(all('p.title')[i]).to have_text mach_str[i]
+      expect(all('td.title')[i]).to have_text mach_str[i]
     end
 
     click_link 'Next'
 
     nextpage=page_index+1
-    expect(all('p.title')[0]).to have_text mach_str[nextpage]
+    expect(all('td.title')[0]).to have_text mach_str[nextpage]
   end
 
   scenario 'タスクが終了期限が降順かのテスト' do
@@ -90,13 +92,13 @@ feature 'タスク管理機能', type: :feature do
     click_link '優先順位でソートする'
 
     for i in 0..page_index do
-      expect(all('p.title')[i]).to have_text match_date[i]
+      expect(all('td.title')[i]).to have_text match_date[i]
     end
 
     click_link 'Next'
 
     nextpage=page_index+1
-    expect(all('p.title')[0]).to have_text match_date[nextpage]
+    expect(all('td.title')[0]).to have_text match_date[nextpage]
 
   end
 end

@@ -1,8 +1,26 @@
-<h1><%= t('view.task_detail_page') %></h1>
-<p><%= t('view.title') %>:<%= @task.title %></p>
-<p><%= t('view.content') %>:<%= @task.content %></p>
-<p><%= t('view.status') %>:<%= @task.status %></p>
-<p><%= t('view.priority') %>:<%= @task.priority_i18n %></p>
-<p><%= t('view.limit_datetime') %>:<%= @task.limit_datetime %></p>
-
-<%= link_to t('veiw.back'), root_path %>
+<div class="container">
+  <table class="table">
+    <thead>
+      <h1><%= t('view.task_detail_page') %></h1>
+    </thead>
+    <tbody>
+      <tr>
+        <th class="com-md-2"><%= t('view.title') %></th><td><%= @task.title %></td>
+      </tr>
+      <tr>
+        <th class="com-md-2"><%= t('view.content') %></th><td><%= @task.content %></td>
+      </tr>
+      <tr>
+        <th class="com-md-2"><%= t('view.status') %></th><td><%= @task.status %></td>
+      </tr>
+      <tr>
+        <th class="com-md-2"><%= t('view.priority') %></th><td><%= @task.priority_i18n %></td>
+      </tr>
+      <tr>
+        <th class="com-md-2"><%= t('view.limit_datetime') %></th><td><%= @task.limit_datetime %></td>
+      </tr>
+      <tr>
+        <td class="btn btn-default"><%= link_to t('veiw.back'), root_path %></td>
+      </tr>
+    </tbody>
+</div>

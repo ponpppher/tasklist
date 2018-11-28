@@ -40,7 +40,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to root_path, flash:{notice: t('view.create_task')}
+      redirect_to tasks_path, flash:{notice: t('view.create_task')}
     else
       render :new
     end
@@ -50,8 +50,11 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task.update(task_params)
-    redirect_to root_path, flash:{notice: t('view.update_task')}
+    if @task.update(task_params)
+      redirect_to tasks_path, flash:{notice: t('view.update_task')}
+    else
+      render :edit
+    end
   end
 
   def show
@@ -60,7 +63,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to root_path, flash:{notice: t('view.delete_task')}
+    redirect_to tasks_path, flash:{notice: t('view.delete_task')}
   end
 
   private
