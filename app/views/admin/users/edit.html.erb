@@ -1,6 +1,6 @@
 <div class="container">
 
-  <%= form_with(model:@user, local:true, url:admin_users_path) do |f| %>
+  <%= form_with(model:@user, local:true, url:admin_user_path) do |f| %>
     <div><%= f.label :name %></div>
     <div><%= f.text_field :name %></div>
 
