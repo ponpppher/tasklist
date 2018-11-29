@@ -1,0 +1,17 @@
+<div class="container">
+  <h1>admin user index page</h1>
+
+  <div class="btn btn-default"><%= link_to t('view.create_user'), new_admin_user_path %></div>
+  <uL>
+    <h4>user detail</h4>
+    <% @user.each do |user| %>
+      <p>id:<%= user.id %></p>
+      <p>name:<%= user.name %></p>
+      <p>email:<%= user.email %></p>
+      <p>task count:<%= user.tasks.count %></p>
+      <p class="btn btn-default"><%= link_to t('view.edit'), new_admin_user_path %></p>
+      <p class="btn btn-default"><%= link_to t('view.delete'), new_admin_user_path %></p>
+      <p class="btn btn-default"><%= link_to t('view.show'), new_admin_user_path %></p>
+    <% end %>
+  </ul>
+</div>
