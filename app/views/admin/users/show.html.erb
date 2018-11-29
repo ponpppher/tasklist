@@ -1,7 +1,11 @@
 <div class="container">
   <h1><%= @user.name %>'s detail page</h1>
 
-  <% if @user.tasks.count != 0%>
+  <h4>id: <%= @user.id %></h4>
+  <h4>email: <%= @user.email %></h4>
+  <h4>admin: <%= @user.admin? ? 'admin' : 'not admin' %></h4>
+
+  <% if @user.tasks.present? %>
   <ul>
     <% @user.tasks.each do |task| %>
       <p>task id: <%= task.id %></p>

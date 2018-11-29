@@ -1,8 +1,9 @@
 class Admin::UsersController < ApplicationController
   before_action :set_user, only:[:edit, :update, :show, :destroy]
+  before_action :require_adm
 
   def index
-    @user = User.all.includes(:tasks)
+    @user = User.all.order(created_at: :asc).includes(:tasks)
   end
 
   def new
@@ -34,18 +35,29 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    redirect_to admin_users_path
+    if User.where(admin: true).count > 1
+      @user.destroy
+      redirect_to admin_users_path
+    else
+      flash[:notice] = "can't delete admin\nBecause admin must exist 1 user"
+      redirect_to admin_users_path
+    end
   end
 
   private
 
   def set_user
-    @user = User.find(params[:id])
+    @user = User.find_by(id: params[:id])
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_digest)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin)
+  end
+
+  def require_adm
+    unless current_user.admin?
+      render file: "#{Rails.root}/public/404.html", layout: false, status: 404
+    end
   end
 
 end
