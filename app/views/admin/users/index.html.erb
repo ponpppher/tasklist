@@ -11,7 +11,7 @@
       <p>task count:<%= user.tasks.count %></p>
       <p class="btn btn-default"><%= link_to t('view.edit'), edit_admin_user_path(user.id) %></p>
       <p class="btn btn-default"><%= link_to t('view.delete'), admin_user_path(user.id), method: :delete %></p>
-      <p class="btn btn-default"><%= link_to t('view.show'), new_admin_user_path %></p>
+      <p class="btn btn-default"><%= link_to t('view.show'), admin_user_path(user.id) %></p>
     <% end %>
   </ul>
 </div>

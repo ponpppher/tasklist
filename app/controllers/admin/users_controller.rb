@@ -2,7 +2,7 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only:[:edit, :update, :show, :destroy]
 
   def index
-    @user = User.all.order(id: :asc)
+    @user = User.all.includes(:tasks)
   end
 
   def new
@@ -10,7 +10,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(set_user)
+    @user = User.new(user_params)
     if @user.save
       redirect_to admin_users_path
     else

@@ -1,0 +1,22 @@
+<div class="container">
+  <h1><%= @user.name %>'s detail page</h1>
+
+  <% if @user.tasks.count != 0%>
+  <ul>
+    <% @user.tasks.each do |task| %>
+      <p>task id: <%= task.id %></p>
+      <p>title: <%= task.title %></p>
+      <p>content: <%= task.content %></p>
+      <p>status: <%= task.status %></p>
+      <p>priority: <%= task.priority %></p>
+      <p>limit: <%= task.limit_datetime %></p>
+      <p>create: <%= task.created_at %></p>
+      <p>update: <%= task.updated_at %></p>
+      <br />
+    <% end %>
+  </ul>
+  <% else %>
+    <h4>no contents date</h4>
+  <% end %>
+  <div class="btn btn-default"><%= link_to t('veiw.back'), admin_users_path %></div>
+</div>
