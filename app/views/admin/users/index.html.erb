@@ -5,10 +5,10 @@
   <uL>
     <h4>user detail</h4>
     <% @user.each do |user| %>
-      <p>id:<%= user.id %></p>
-      <p>name:<%= user.name %></p>
-      <p>email:<%= user.email %></p>
-      <p>task count:<%= user.tasks.count %></p>
+      <p>id: <%= user.id %></p>
+      <p>name: <%= user.name %></p>
+      <p>email: <%= user.email %></p>
+      <p>task count: <%= user.tasks.count %></p>
       <p class="btn btn-default"><%= link_to t('view.edit'), edit_admin_user_path(user.id) %></p>
       <p class="btn btn-default"><%= link_to t('view.delete'), admin_user_path(user.id), method: :delete %></p>
       <p class="btn btn-default"><%= link_to t('view.show'), admin_user_path(user.id) %></p>
