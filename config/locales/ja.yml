@@ -16,6 +16,7 @@ ja:
     title: "タスク名"
     content: "内容"
     status: "状態"
+    label: "ラベル"
     not_yet_started: "未着手"
     start: "着手"
     complete: "完了"

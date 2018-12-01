@@ -15,13 +15,10 @@ class TasksController < ApplicationController
       case params[:task][:status_search]
       when NOT_YET then
         @task = current_user.tasks.not_yet_started
-        #@task = Task.not_yet_started
       when START then
         @task = current_user.tasks.start
-        #@task = Task.start
       when COMPLETE then
         @task = current_user.tasks.complete
-        #@task = Task.complete
       else
         @task = current_user.tasks.order(created_at: :desc)
       end
@@ -46,7 +43,13 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.build(task_params)
+
     if @task.save
+      puts "id:#{@task.id}"
+      labels = params[:task][:label_ids]
+      labels.each do |label|
+        puts "label:#{label}"
+      end
       redirect_to tasks_path, flash:{notice: t('view.create_task')}
     else
       render :new
@@ -76,7 +79,13 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :content, :status, :priority, :limit_datetime)
+    params.require(:task).permit(
+      :title,
+      :content,
+      :status,
+      :priority,
+      :limit_datetime,
+    )
   end
 
   def set_task
