@@ -16,6 +16,15 @@
       <p>limit: <%= task.limit_datetime %></p>
       <p>create: <%= task.created_at %></p>
       <p>update: <%= task.updated_at %></p>
+      <ul>
+        <% if task.labeling_label.present? %>
+          <strong>labes:</strong>
+        <% end %>
+        <% task.labeling_label.each do |label| %>
+          <%= label.name %>
+        <% end %>
+        </p>
+      </ul>
       <br />
     <% end %>
   </ul>

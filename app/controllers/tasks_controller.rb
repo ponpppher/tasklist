@@ -45,11 +45,18 @@ class TasksController < ApplicationController
     @task = current_user.tasks.build(task_params)
 
     if @task.save
-      puts "id:#{@task.id}"
+      # insert task id
+      task_id = @task.id
+
+      # チェックされたlabelを取得し、
+      # label毎にtaskと紐づけセーブする
       labels = params[:task][:label_ids]
-      labels.each do |label|
-        puts "label:#{label}"
+      labels.each do |label_id|
+        label_ins = Labeling.new({task_id: task_id, label_id: label_id})
+        label_ins.save
       end
+
+      puts "create label:#{Labeling.where(task_id: task_id)}"
       redirect_to tasks_path, flash:{notice: t('view.create_task')}
     else
       render :new
@@ -68,6 +75,7 @@ class TasksController < ApplicationController
   end
 
   def show
+    @labels = @task.labeling_label
     render :show
   end
 
