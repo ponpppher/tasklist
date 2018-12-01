@@ -35,13 +35,13 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    if User.where(admin: true).count > 1
-      @user.destroy
-      redirect_to admin_users_path
-    else
+    admin_num = User.where(admin: true).size
+    if @user.admin? && ( admin_num == 1 )
       flash[:notice] = "can't delete admin\nBecause admin must exist 1 user"
-      redirect_to admin_users_path
+    else
+      @user.destroy
     end
+    redirect_to admin_users_path
   end
 
   private
