@@ -8,6 +8,14 @@
         <th class="com-md-2"><%= t('view.title') %></th><td><%= @task.title %></td>
       </tr>
       <tr>
+        <th class="com-md-2"><%= t('view.label') %></th>
+        <td>
+        <% @labels.each do |label| %>
+          <span><%= label.name %></span>
+        <% end %>
+        </td>
+      </tr>
+      <tr>
         <th class="com-md-2"><%= t('view.content') %></th><td><%= @task.content %></td>
       </tr>
       <tr>
