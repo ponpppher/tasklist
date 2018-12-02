@@ -6,6 +6,7 @@ ja:
     edit_your_task: "タスク編集"
     task_detail_page: "タスク詳細"
     search_form: "タスク検索"
+    label_form: "ラベル検索"
     search: "検索"
     create_task: "新規タスク作成しました"
     update_task: "タスクを更新しました"

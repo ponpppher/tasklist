@@ -7,7 +7,6 @@ class TasksController < ApplicationController
   def index
     if params[:sort_expired]
       @task = current_user.tasks.order(limit_datetime: :desc)
-      #@task = Task.all.order(limit_datetime: :desc)
     elsif params[:sort_priority]
       @task = current_user.tasks.order(priority: :desc)
       @task = @task.order(created_at: :desc)
@@ -21,6 +20,10 @@ class TasksController < ApplicationController
         @task = current_user.tasks.complete
       else
         @task = current_user.tasks.order(created_at: :desc)
+      end
+      unless params[:task][:label_search].blank?
+        label_name = params[:task][:label_search]
+        @task = Label.where(name: label_name)[0].labeling_task
       end
       unless params[:task][:title_search].blank?
         title = params[:task][:title_search]
@@ -50,10 +53,12 @@ class TasksController < ApplicationController
 
       # チェックされたlabelを取得し、
       # label毎にtaskと紐づけセーブする
-      labels = params[:task][:label_ids]
-      labels.each do |label_id|
-        label_ins = Labeling.new({task_id: task_id, label_id: label_id})
-        label_ins.save
+      unless params[:task][:label_ids].blank?
+        labels = params[:task][:label_ids]
+        labels.each do |label_id|
+          label_ins = Labeling.new({task_id: task_id, label_id: label_id})
+          label_ins.save
+        end
       end
 
       puts "create label:#{Labeling.where(task_id: task_id)}"
