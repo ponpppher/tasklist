@@ -36,7 +36,11 @@
 
     <div class ="form-group">
       <%= f.label :limit_datetime, t('view.limit_datetime') %>
-      <%= f.date_field :limit_datetime %>
+      <%= f.datetime_select(
+        :limit_datetime,
+        user_month_numbers: true,
+        default: Date.today
+      ) %>
     </div>
 
     <br />
