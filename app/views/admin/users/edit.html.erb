@@ -7,11 +7,14 @@
     <div><%= f.label :email %></div>
     <div><%= f.email_field :email %></div>
 
+    <div><%= f.label :admin %></div>
+    <div><%= f.check_box :admin %></div>
+
     <div><%= f.label :password %></div>
     <div><%= f.password_field :password %></div>
 
     <div><%= f.label :password_confirmation %></div>
-    <div><%= f.password_field :password_digest %></div>
+    <div><%= f.password_field :password_confirmation %></div>
     <div><%= f.submit %></div>
 
   <% end %>
