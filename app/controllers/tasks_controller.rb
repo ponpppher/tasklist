@@ -24,6 +24,7 @@ class TasksController < ApplicationController
       unless params[:task][:label_search].blank?
         label_name = params[:task][:label_search]
         @task = Label.where(name: label_name)[0].labeling_task
+        @task = @task.where(user_id: current_user.id)
       end
       unless params[:task][:title_search].blank?
         title = params[:task][:title_search]

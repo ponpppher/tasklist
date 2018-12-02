@@ -9,11 +9,11 @@
       </tr>
       <tr>
         <th class="com-md-2"><%= t('view.label') %></th>
-        <ul>
+        <td>
         <% @labels.each do |label| %>
-          <td><%= label.name %></td>
+          <span><%= label.name %></span>
         <% end %>
-        </ul>
+        </td>
       </tr>
       <tr>
         <th class="com-md-2"><%= t('view.content') %></th><td><%= @task.content %></td>
