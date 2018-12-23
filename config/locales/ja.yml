@@ -10,11 +10,17 @@ ja:
       label_form: "ラベル検索"
       sort_expired: "終了期限でソートする"
       sort_priority: "優先順位でソートする"
+      create_user: "ユーザー登録"
     message:
       create_task: "新規タスク作成しました"
       update_task: "タスクを更新しました"
       delete_task: "タスクを削除しました"
       errors_found!: "個のエラーがあります。"
+    user_detail:
+      name: "ユーザー名"
+      email: "メールアドレス"
+      admin: "管理者"
+      task_count: "登録タスク数"
     detail:
       title: "タスク名"
       content: "内容"
@@ -22,6 +28,7 @@ ja:
       label: "ラベル"
       priority: "優先度"
       created_at: "作成日"
+      updated_at: "更新日"
       limit_datetime: "終了期限"
     state:
       high_priority: "高"

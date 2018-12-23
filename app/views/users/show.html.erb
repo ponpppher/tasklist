@@ -1,5 +1,6 @@
-show you detail
-user: <%= @user.name %>
-email: <%= @user.email %>
-
-<%= link_to t('view.back'), tasks_path %>
+<h3>your detail data</h3>
+<ul>
+  <p><%= t('view.user_detail.name') %>: <%= @user.name %></p>
+  <p><%= t('view.user_detail.email') %>: <%= @user.email %></p>
+</ul>
+<div class="btn btn-default"><%= link_to t('view.button.back'), tasks_path %></div>
