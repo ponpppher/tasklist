@@ -2,18 +2,18 @@
   <%= form_with(model:@task, local:true, url: choose_new_or_edit ) do |f| %>
 
     <div class ="form-group">
-      <%= f.label :title, t('view.title') %>
+      <%= f.label :title, t('view.detail.title') %>
       <%= f.text_field :title, { class: 'form-control', placeholder:"Title" } %>
     </div>
 
     <div class ="form-group">
-      <%= f.label :content, t('view.content') %>
+      <%= f.label :content, t('view.detail.content') %>
       <%= f.text_area :content, { class: 'form-control', placeholder:"Task Content" } %>
     </div>
 
     <br />
     <div class ="form-group">
-      <%= f.label :status, t('view.status') %>
+      <%= f.label :status, t('view.detail.status') %>
       <%= f.select :status , \
         {"未着手" => t('view.not_yet_started'), "着手" => t('view.start'), "完了" => t('view.complete')},\
         include_blank: true, selected: "", class:"form-control"\
@@ -21,12 +21,12 @@
     </div>
 
     <div class ="form-group">
-      <%= f.label :priority, t('view.priority') %>
+      <%= f.label :priority, t('view.detail.priority') %>
       <%= f.select :priority, Task.priorities_i18n.invert, class:"form-control" %>
     </div>
 
     <div class ="form-group">
-      <div><%= f.label :label, t('view.label') %></div>
+      <div><%= f.label :label, t('view.detail.label') %></div>
       <% Label.all.each do | label | %>
         <%= f.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false },
         label[:id] %>
@@ -35,7 +35,7 @@
     </div>
 
     <div class ="form-group">
-      <%= f.label :limit_datetime, t('view.limit_datetime') %>
+      <%= f.label :limit_datetime, t('view.detail.limit_datetime') %>
       <%= f.datetime_select(
         :limit_datetime,
         user_month_numbers: true,
@@ -46,5 +46,5 @@
     <br />
     <%= f.submit class: 'btn btn-default' %>
   <% end %>
-  <div class='btn btn-default'><%= link_to t('view.back'), root_path %></div>
+  <div class='btn btn-default'><%= link_to t('view.button.back'), root_path %></div>
 </div>
