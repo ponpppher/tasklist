@@ -1,8 +1,8 @@
-<h1><%= t('view.title.post_your_task') %></h1>
+<h1><%= t('views.title.post_your_task') %></h1>
 
 <% if @task.errors.any? %>
   <div id = "error_explanation">
-    <h2> <%= @task.errors.count %> <%= t('view.errors_found!') %></h2>
+    <h2> <%= @task.errors.count %> <%= t('views.errors_found!') %></h2>
     <ul>
       <% @task.errors.full_messages.each do | msg | %>
         <p> <%= msg %></p>

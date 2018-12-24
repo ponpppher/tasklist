@@ -13,6 +13,9 @@ class Task < ApplicationRecord
   scope :not_yet_started, -> {where(status: NOT_YET)}
   scope :start, -> {where(status: START)}
   scope :complete, -> {where(status: COMPLETE)}
+  scope :sort_expired, -> {order(limit_datetime: :desc)}
+  scope :sort_priority, -> {order(priority: :desc)}
+  scope :sort_created_at, -> {order(created_at: :desc)}
 
   belongs_to :user
 

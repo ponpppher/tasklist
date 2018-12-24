@@ -1,14 +1,14 @@
 <div class="container">
   <table class="table">
     <thead>
-      <h1><%= t('view.title.task_detail_page') %></h1>
+      <h1><%= t('views.title.task_detail_page') %></h1>
     </thead>
     <tbody>
       <tr>
-        <th class="com-md-2"><%= t('view.detail.title') %></th><td><%= @task.title %></td>
+        <th class="com-md-2"><%= t('views.detail.title') %></th><td><%= @task.title %></td>
       </tr>
       <tr>
-        <th class="com-md-2"><%= t('view.detail.label') %></th>
+        <th class="com-md-2"><%= t('views.detail.label') %></th>
         <td>
         <% @labels.each do |label| %>
           <span><%= label.name %></span>
@@ -16,19 +16,19 @@
         </td>
       </tr>
       <tr>
-        <th class="com-md-2"><%= t('view.detail.content') %></th><td><%= @task.content %></td>
+        <th class="com-md-2"><%= t('views.detail.content') %></th><td><%= @task.content %></td>
       </tr>
       <tr>
-        <th class="com-md-2"><%= t('view.detail.status') %></th><td><%= @task.status %></td>
+        <th class="com-md-2"><%= t('views.detail.status') %></th><td><%= @task.status %></td>
       </tr>
       <tr>
-        <th class="com-md-2"><%= t('view.detail.priority') %></th><td><%= @task.priority_i18n %></td>
+        <th class="com-md-2"><%= t('views.detail.priority') %></th><td><%= @task.priority_i18n %></td>
       </tr>
       <tr>
-        <th class="com-md-2"><%= t('view.detail.limit_datetime') %></th><td><%= @task.limit_datetime %></td>
+        <th class="com-md-2"><%= t('views.detail.limit_datetime') %></th><td><%= @task.limit_datetime %></td>
       </tr>
       <tr>
-        <td class="btn btn-default"><%= link_to t('view.button.back'), root_path %></td>
+        <td class="btn btn-default"><%= link_to t('views.button.back'), root_path %></td>
       </tr>
     </tbody>
 </div>

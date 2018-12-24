@@ -3,10 +3,13 @@ class TasksController < ApplicationController
 
   def index
     if params[:sort_expired]
-      @task = current_user.tasks.order(limit_datetime: :desc)
+      #@task = current_user.tasks.order(limit_datetime: :desc)
+      @task = current_user.tasks.sort_expired
     elsif params[:sort_priority]
-      @task = current_user.tasks.order(priority: :desc)
-      @task = @task.order(created_at: :desc)
+      tasks_priority = current_user.tasks.sort_priority
+      #@task = current_user.tasks.order(priority: :desc)
+      @task = tasks_priority.sort_created_at
+      #@task = @task.order(created_at: :desc)
     elsif params.include?(:task) && params[:task].include?(:search)
       case params[:task][:status_search]
       when NOT_YET then
@@ -16,7 +19,7 @@ class TasksController < ApplicationController
       when COMPLETE then
         @task = current_user.tasks.complete
       else
-        @task = current_user.tasks.order(created_at: :desc)
+        @task = current_user.tasks.sort_created_at
       end
       unless params[:task][:label_search].blank?
         label_name = params[:task][:label_search]
