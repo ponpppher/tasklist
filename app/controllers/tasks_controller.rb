@@ -1,8 +1,5 @@
 class TasksController < ApplicationController
   before_action :set_task, only:[:edit, :update, :show, :destroy]
-  NOT_YET = I18n.t('view.not_yet_started').freeze
-  START = I18n.t('view.start').freeze
-  COMPLETE= I18n.t('view.complete').freeze
 
   def index
     if params[:sort_expired]

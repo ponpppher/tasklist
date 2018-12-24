@@ -1,7 +1,7 @@
 class Task < ApplicationRecord
-  NOT_YET = I18n.t('view.not_yet_started').freeze
-  START = I18n.t('view.start').freeze
-  COMPLETE= I18n.t('view.complete').freeze
+  NOT_YET = "未着手".freeze
+  START = "着手".freeze
+  COMPLETE= "完了".freeze
 
   validates:title, presence:true, length: { in: 1..250 }
   validates:content, presence:true, length: { in: 1..500 }
