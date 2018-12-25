@@ -10,9 +10,14 @@ class Task < ApplicationRecord
 
   enum priority: { low: 0, middle: 1, high: 2 }
 
+  # scope search
   scope :not_yet_started, -> {where(status: NOT_YET)}
   scope :start, -> {where(status: START)}
   scope :complete, -> {where(status: COMPLETE)}
+  scope :search_by_user_id, -> (id){ where(user_id: id) }
+  scope :search_by_title, -> (title){ where("title LIKE?", "%#{title}%") }
+
+  # scope oerderby
   scope :sort_expired, -> {order(limit_datetime: :desc)}
   scope :sort_priority, -> {order(priority: :desc)}
   scope :sort_created_at, -> {order(created_at: :desc)}

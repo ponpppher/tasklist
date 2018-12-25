@@ -2,43 +2,43 @@ class TasksController < ApplicationController
   before_action :set_task, only:[:edit, :update, :show, :destroy]
 
   def index
+    # confirm logged in 
+    if current_user
+      @tasks = current_user.tasks.sort_created_at
+    end
+
+    # branch by sort parameter
+    # expired priority and search flag
     if params[:sort_expired]
-      #@task = current_user.tasks.order(limit_datetime: :desc)
-      @task = current_user.tasks.sort_expired
+      @tasks = current_user.tasks.sort_expired
     elsif params[:sort_priority]
       tasks_priority = current_user.tasks.sort_priority
-      #@task = current_user.tasks.order(priority: :desc)
-      @task = tasks_priority.sort_created_at
-      #@task = @task.order(created_at: :desc)
+      @tasks = tasks_priority.sort_created_at
     elsif params.include?(:task) && params[:task].include?(:search)
+      # switch by status params
+      # NOT_YET START COMPLATE
       case params[:task][:status_search]
       when NOT_YET then
-        @task = current_user.tasks.not_yet_started
+        @tasks = current_user.tasks.not_yet_started
       when START then
-        @task = current_user.tasks.start
+        @tasks = current_user.tasks.start
       when COMPLETE then
-        @task = current_user.tasks.complete
+        @tasks = current_user.tasks.complete
       else
-        @task = current_user.tasks.sort_created_at
+        @tasks = current_user.tasks.sort_created_at
       end
+      # search label or title
       unless params[:task][:label_search].blank?
         label_name = params[:task][:label_search]
-        @task = Label.where(name: label_name)[0].labeling_task
-        @task = @task.where(user_id: current_user.id)
+        labeled_tasks = Label.search_by_name(label_name)[0].labeling_task
+        @tasks = labeled_tasks.search_by_user_id(current_user.id)
       end
       unless params[:task][:title_search].blank?
         title = params[:task][:title_search]
-        @task = @task.where("title LIKE?", "%#{title}%")
-      end
-    else
-      if current_user
-        @task = current_user.tasks.order(created_at: :desc)
-      else
-        @task = Task.order(created_at: :desc)
+        @tasks = current_user.tasks.search_by_title(title)
       end
     end
-    @task = @task.page(params[:page]).per(3)
-
+    @task = @tasks.page(params[:page]).per(3)
   end
 
   def new
