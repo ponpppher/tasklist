@@ -14,9 +14,11 @@
     <br />
     <div class ="form-group">
       <%= f.label :status, t('views.detail.status') %>
-      <%= f.select :status , \
-        {"未着手" => t('views.state.not_yet_started'), "着手" => t('views.state.start'), "完了" => t('views.state.complete')},\
-        include_blank: true, selected: "", class:"form-control"\
+      <%= f.select :status ,{
+        t('views.state.not_yet_started') => "未着手",
+        t('views.state.start') => "着手",
+        t('views.state.complete') => "完了"},
+        include_blank: true, selected: "", class:"form-control"
       %>
     </div>
 
