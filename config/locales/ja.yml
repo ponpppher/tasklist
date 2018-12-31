@@ -34,9 +34,9 @@ ja:
       high_priority: "高"
       middle_priority: "中"
       low_priority: "低"
-      not_yet_started: "未着手"
-      start: "着手"
-      complete: "完了"
+      waiting: "未着手"
+      working: "着手"
+      complated: "完了"
     button:
       edit: "編集"
       delete: "削除"

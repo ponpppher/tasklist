@@ -11,14 +11,21 @@
       <%= f.text_field :title_search, { class: 'form-control', placeholder: 'Title Name' } %>
     </div>
 
-    <div class ="form-group">
-      <%= f.label :status_search, t("views.detail.status") %>
-      <%= f.select :status_search, {
-        t('views.state.not_yet_started') => "未着手",
-        t('views.state.start') => "着手",
-        t('views.state.complete') => "完了",
-        },include_blank: true,selected: "", class:'form-control' %>
-    </div>
+    <% if false %>
+      <div class ="form-group">
+        <%= f.label :status_search, t("views.detail.status") %>
+        <%= f.select :status_search, {
+          t('views.state.not_yet_started') => "未着手",
+          t('views.state.start') => "着手",
+          t('views.state.complete') => "完了",
+          },include_blank: true,selected: "", class:'form-control' %>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :status_search, t('views.detail.status') %>
+      <%= f.select :status_search, Task.statuses.keys.to_a, {} %>
+      </div>
 
     <%= f.hidden_field :search, value: 'true' %>
     <%= f.submit t('views.button.search'), class: 'btn btn-default' %>
@@ -47,9 +54,11 @@
         <tr>
           <th class="col-md-2"><%= t('views.detail.content') %></th><td class="content"><%= task.content %></td>
         </tr>
+        <% if false %>
         <tr>
           <th class="col-md-2"><%= t('views.detail.status') %></th><td class="status"><%= task.status %></td>
         </tr>
+        <% end %>
         <tr>
           <th class="col-md-2"><%= t('views.detail.priority') %></th><td class="priority"><%= task.priority_i18n %></td>
         </tr>
