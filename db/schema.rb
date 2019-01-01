@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_30_235815) do
+ActiveRecord::Schema.define(version: 2018_12_31_094057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.bigint "task_id"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_comments_on_task_id"
+  end
 
   create_table "labelings", force: :cascade do |t|
     t.bigint "task_id"
@@ -28,17 +36,28 @@ ActiveRecord::Schema.define(version: 2018_11_30_235815) do
     t.string "name"
   end
 
+  create_table "relationships", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "followed_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followed_id"], name: "index_relationships_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.string "title", null: false
     t.string "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "limit_datetime", null: false
-    t.string "status", default: ""
     t.integer "priority", limit: 2, default: 1, null: false
     t.bigint "user_id"
+    t.integer "status", limit: 2, default: 0, null: false
     t.index ["content"], name: "index_tasks_on_content"
     t.index ["priority"], name: "index_tasks_on_priority"
+    t.index ["status"], name: "index_tasks_on_status"
     t.index ["title"], name: "index_tasks_on_title"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
@@ -53,6 +72,7 @@ ActiveRecord::Schema.define(version: 2018_11_30_235815) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "comments", "tasks"
   add_foreign_key "labelings", "labels"
   add_foreign_key "labelings", "tasks"
   add_foreign_key "tasks", "users"

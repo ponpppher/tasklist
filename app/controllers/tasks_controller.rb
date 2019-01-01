@@ -1,44 +1,48 @@
 class TasksController < ApplicationController
   before_action :set_task, only:[:edit, :update, :show, :destroy]
-  NOT_YET = I18n.t('view.not_yet_started').freeze
-  START = I18n.t('view.start').freeze
-  COMPLETE= I18n.t('view.complete').freeze
 
   def index
+    # confirm logged in 
+    if current_user
+      @tasks = current_user.tasks.sort_created_at
+    end
+
+    # branch by sort parameter
+    # expired priority and search flag
     if params[:sort_expired]
-      @task = current_user.tasks.order(limit_datetime: :desc)
+      @tasks = current_user.tasks.sort_expired
     elsif params[:sort_priority]
-      @task = current_user.tasks.order(priority: :desc)
-      @task = @task.order(created_at: :desc)
+      tasks_priority = current_user.tasks.sort_priority
+      @tasks = tasks_priority.sort_created_at
     elsif params.include?(:task) && params[:task].include?(:search)
-      case params[:task][:status_search]
-      when NOT_YET then
-        @task = current_user.tasks.not_yet_started
-      when START then
-        @task = current_user.tasks.start
-      when COMPLETE then
-        @task = current_user.tasks.complete
-      else
-        @task = current_user.tasks.order(created_at: :desc)
-      end
-      unless params[:task][:label_search].blank?
-        label_name = params[:task][:label_search]
-        @task = Label.where(name: label_name)[0].labeling_task
-        @task = @task.where(user_id: current_user.id)
-      end
+
+      # title search
       unless params[:task][:title_search].blank?
         title = params[:task][:title_search]
-        @task = @task.where("title LIKE?", "%#{title}%")
-      end
-    else
-      if current_user
-        @task = current_user.tasks.order(created_at: :desc)
+        title_tasks = current_user.tasks.search_by_title(title)
       else
-        @task = Task.order(created_at: :desc)
+        title_tasks = current_user.tasks.sort_created_at
       end
-    end
-    @task = @task.page(params[:page]).per(3)
+        
+      # switch by status params
+      case params[:task][:status_search].to_sym
+      when :waiting then
+        @tasks = title_tasks.waiting
+      when :working then
+        @tasks = title_tasks.working
+      when :complated then
+        @tasks = title_tasks.complated
+      end
 
+      # search label or title
+      unless params[:task][:label_search].blank?
+        label_name = params[:task][:label_search]
+        labeled_tasks = Label.search_by_name(label_name)[0].labeling_task
+        @tasks = labeled_tasks.search_by_user_id(current_user.id)
+      end
+
+    end
+    @task = @tasks.page(params[:page]).per(3)
   end
 
   def new
@@ -62,7 +66,6 @@ class TasksController < ApplicationController
         end
       end
 
-      puts "create label:#{Labeling.where(task_id: task_id)}"
       redirect_to tasks_path, flash:{notice: t('view.create_task')}
     else
       render :new

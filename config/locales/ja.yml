@@ -1,6 +1,6 @@
 ---
 ja:
-  view:
+  views:
     title:
       your_task_list: "タスク管理一覧"
       post_your_task: "タスク登録"
@@ -10,11 +10,17 @@ ja:
       label_form: "ラベル検索"
       sort_expired: "終了期限でソートする"
       sort_priority: "優先順位でソートする"
+      create_user: "ユーザー登録"
     message:
       create_task: "新規タスク作成しました"
       update_task: "タスクを更新しました"
       delete_task: "タスクを削除しました"
       errors_found!: "個のエラーがあります。"
+    user_detail:
+      name: "ユーザー名"
+      email: "メールアドレス"
+      admin: "管理者"
+      task_count: "登録タスク数"
     detail:
       title: "タスク名"
       content: "内容"
@@ -22,26 +28,34 @@ ja:
       label: "ラベル"
       priority: "優先度"
       created_at: "作成日"
+      updated_at: "更新日"
       limit_datetime: "終了期限"
     state:
       high_priority: "高"
       middle_priority: "中"
       low_priority: "低"
-      not_yet_started: "未着手"
-      start: "着手"
-      complete: "完了"
     button:
       edit: "編集"
       delete: "削除"
       show: "詳細"
       search: "検索"
       back: "戻る"
+    pagination:
+      first: "&laquo; 最初"
+      last: "最後 &raquo;"
+      previous: "&lsaquo; 前"
+      next: "次 &rsaquo;"
+      truncate: "..."
   enums:
     task:
       priority:
         low: "低"
         middle: "中"
         high: "高"
+      status:
+        waiting: "未着手"
+        working: "着手"
+        complated: "完了"
   activerecord:
     errors:
       messages:

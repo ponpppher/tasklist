@@ -9,13 +9,13 @@
   <ul>
     <% @user.tasks.each do |task| %>
       <p>task id: <%= task.id %></p>
-      <p>title: <%= task.title %></p>
-      <p>content: <%= task.content %></p>
-      <p>status: <%= task.status %></p>
-      <p>priority: <%= task.priority %></p>
-      <p>limit: <%= task.limit_datetime %></p>
-      <p>create: <%= task.created_at %></p>
-      <p>update: <%= task.updated_at %></p>
+      <p><%= t('views.detail.title') %>: <%= task.title %></p>
+      <p><%= t('views.detail.content') %>: <%= task.content %></p>
+      <p><%= t('views.detail.status') %>: <%= task.status %></p>
+      <p><%= t('views.detail.priority') %>: <%= task.priority %></p>
+      <p><%= t('views.detail.limit_datetime') %>: <%= task.limit_datetime %></p>
+      <p><%= t('views.detail.created_at') %>: <%= task.created_at %></p>
+      <p><%= t('views.detail.updated_at') %>: <%= task.updated_at %></p>
       <ul>
         <% if task.labeling_label.present? %>
           <strong>labes:</strong>
@@ -31,5 +31,5 @@
   <% else %>
     <h4>no contents date</h4>
   <% end %>
-  <div class="btn btn-default"><%= link_to t('veiw.back'), admin_users_path %></div>
+  <div class="btn btn-default"><%= link_to t('views.button.back'), admin_users_path %></div>
 </div>
