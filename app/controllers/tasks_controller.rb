@@ -15,28 +15,32 @@ class TasksController < ApplicationController
       tasks_priority = current_user.tasks.sort_priority
       @tasks = tasks_priority.sort_created_at
     elsif params.include?(:task) && params[:task].include?(:search)
-      # switch by status params
-      # NOT_YET START COMPLATE
-      case params[:task][:status_search]
-      when NOT_YET then
-        @tasks = current_user.tasks.not_yet_started
-      when START then
-        @tasks = current_user.tasks.start
-      when COMPLETE then
-        @tasks = current_user.tasks.complete
+
+      # title search
+      unless params[:task][:title_search].blank?
+        title = params[:task][:title_search]
+        title_tasks = current_user.tasks.search_by_title(title)
       else
-        @tasks = current_user.tasks.sort_created_at
+        title_tasks = current_user.tasks.sort_created_at
       end
+        
+      # switch by status params
+      case params[:task][:status_search].to_sym
+      when :waiting then
+        @tasks = title_tasks.waiting
+      when :working then
+        @tasks = title_tasks.working
+      when :complated then
+        @tasks = title_tasks.complated
+      end
+
       # search label or title
       unless params[:task][:label_search].blank?
         label_name = params[:task][:label_search]
         labeled_tasks = Label.search_by_name(label_name)[0].labeling_task
         @tasks = labeled_tasks.search_by_user_id(current_user.id)
       end
-      unless params[:task][:title_search].blank?
-        title = params[:task][:title_search]
-        @tasks = current_user.tasks.search_by_title(title)
-      end
+
     end
     @task = @tasks.page(params[:page]).per(3)
   end
@@ -62,7 +66,6 @@ class TasksController < ApplicationController
         end
       end
 
-      puts "create label:#{Labeling.where(task_id: task_id)}"
       redirect_to tasks_path, flash:{notice: t('view.create_task')}
     else
       render :new

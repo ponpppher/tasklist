@@ -12,14 +12,10 @@
     </div>
 
     <br />
-    <div class ="form-group">
+
+    <div class="form-group">
       <%= f.label :status, t('views.detail.status') %>
-      <%= f.select :status ,{
-        t('views.state.not_yet_started') => "未着手",
-        t('views.state.start') => "着手",
-        t('views.state.complete') => "完了"},
-        include_blank: true, selected: "", class:"form-control"
-      %>
+      <%= f.select :status, Task.statuses_i18n.invert, {} %>
     </div>
 
     <div class ="form-group">

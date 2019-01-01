@@ -1,11 +1,7 @@
 class ApplicationController < ActionController::Base
+  # basic auth in heroku
   http_basic_authenticate_with :name => ENV['BASIC_AUTH_USERNAME'], :password => ENV['BASIC_AUTH_PASSWORD'] if Rails.env == "production"
   before_action :login_required
-
-  NOT_YET = "未着手".freeze
-  START = "着手".freeze
-  COMPLETE= "完了".freeze
-
 
   protect_from_forgery with: :exception
   include SessionsHelper

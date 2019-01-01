@@ -11,21 +11,14 @@
       <%= f.text_field :title_search, { class: 'form-control', placeholder: 'Title Name' } %>
     </div>
 
-    <% if false %>
-      <div class ="form-group">
-        <%= f.label :status_search, t("views.detail.status") %>
-        <%= f.select :status_search, {
-          t('views.state.not_yet_started') => "未着手",
-          t('views.state.start') => "着手",
-          t('views.state.complete') => "完了",
-          },include_blank: true,selected: "", class:'form-control' %>
-      </div>
-    <% end %>
-
     <div class="form-group">
       <%= f.label :status_search, t('views.detail.status') %>
-      <%= f.select :status_search, Task.statuses_i18n.invert, {} %>
-      </div>
+      <%= f.select :status_search, {
+        Task.statuses_i18n[:waiting] => :waiting,
+        Task.statuses_i18n[:working] => :working,
+        Task.statuses_i18n[:complated] => :complated,
+      }, include_blank: true %>
+    </div>
 
     <%= f.hidden_field :search, value: 'true' %>
     <%= f.submit t('views.button.search'), class: 'btn btn-default' %>
@@ -41,7 +34,7 @@
     <% end %>
 
     <%= f.hidden_field :search, value: 'true' %>
-    <%= f.submit "ラベル検索", class: 'btn btn-default' %>
+    <%= f.submit t('views.title.label_form'), class: 'btn btn-default' %>
   <% end %>
 
   <ul>
