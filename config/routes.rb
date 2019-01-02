@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :users, only:[:new, :create, :show]
   resources :sessions, only:[:new, :create, :destroy]
   resources :labels, only:[:index, :destroy]
+  get 'search', to: 'tasks#search'
 
   namespace :admin do
     resources :users

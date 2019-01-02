@@ -5,23 +5,35 @@
   <div class="btn btn-default"><%= link_to t('views.title.sort_priority'), tasks_path(sort_priority: "true") %></div>
 
   <h3><%= t("views.title.search_form")%></h3>
-  <%= form_with(model:@task , local:true, url:tasks_path, method: :get, class: "form-inline") do |f| %>
-    <div class ="form-group">
-      <%= f.label :title_search, t("views.detail.title"), { class: 'sr-only' } %>
-      <%= f.text_field :title_search, { class: 'form-control', placeholder: 'Title Name' } %>
-    </div>
 
-    <div class="form-group">
-      <%= f.label :status_search, t('views.detail.status') %>
-      <%= f.select :status_search, {
-        Task.statuses_i18n[:waiting] => :waiting,
-        Task.statuses_i18n[:working] => :working,
-        Task.statuses_i18n[:complated] => :complated,
-      }, include_blank: true %>
-    </div>
+  <% if false %>
+    <%= form_with(model:@task , local:true, url:tasks_path, method: :get, class: "form-inline") do |f| %>
+      <div class ="form-group">
+        <%= f.label :title_search, t("views.detail.title"), { class: 'sr-only' } %>
+        <%= f.text_field :title_search, { class: 'form-control', placeholder: 'Title Name' } %>
+      </div>
 
-    <%= f.hidden_field :search, value: 'true' %>
-    <%= f.submit t('views.button.search'), class: 'btn btn-default' %>
+      <div class="form-group">
+        <%= f.label :status_search, t('views.detail.status') %>
+        <%= f.select :status_search, {
+          Task.statuses_i18n[:waiting] => :waiting,
+          Task.statuses_i18n[:working] => :working,
+          Task.statuses_i18n[:complated] => :complated,
+        }, include_blank: true %>
+      </div>
+
+      <%= f.hidden_field :search, value: 'true' %>
+      <%= f.submit t('views.button.search'), class: 'btn btn-default' %>
+    <% end %>
+  <% end %>
+
+  <%= search_form_for(@q, url:search_path) do |f| %>
+    <div class="form_group">
+      <%= f.label :title_cont %>
+      <%= f.text_field :title_cont %>
+    </div>
+    <%= f.submit %>
+
   <% end %>
 
   <h3><%= t("views.title.label_form")%></h3>
