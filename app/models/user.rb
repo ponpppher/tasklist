@@ -8,5 +8,4 @@ class User < ApplicationRecord
     uniqueness: true
   
   has_many :tasks, dependent: :destroy
-
 end

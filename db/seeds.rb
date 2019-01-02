@@ -18,6 +18,12 @@
 #  )
 
   label = Faker::Pokemon.unique.name
-  Label.create!(name:label)
+  Label.create!(name:label, user_id:1)
 end
+
+5.times do |n|
+  label = Faker::Pokemon.unique.name
+  Label.create!(name:label, user_id:2)
+end
+
 

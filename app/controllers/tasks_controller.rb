@@ -1,60 +1,33 @@
 class TasksController < ApplicationController
   before_action :set_task, only:[:edit, :update, :show, :destroy]
+  before_action :set_label, only:[:index, :search, :new]
 
   def index
-    # confirm logged in 
-    # 全件取得
+    # all data in each models
     @q = current_user.tasks.ransack(params[:q])
-    # 重複を削除した結果を返却
-    @tasks = @q.result(distinct: true)
-      #@tasks = current_user.tasks.sort_created_at
 
     # branch by sort parameter
     # expired priority and search flag
-#    if params[:sort_expired]
-#      @tasks = current_user.tasks.sort_expired
-#    elsif params[:sort_priority]
-#      tasks_priority = current_user.tasks.sort_priority
-#      @tasks = tasks_priority.sort_created_at
-#    elsif params.include?(:task) && params[:task].include?(:search)
-#
-#      # title search
-#      unless params[:task][:title_search].blank?
-#        title = params[:task][:title_search]
-#        title_tasks = current_user.tasks.search_by_title(title)
-#      else
-#        title_tasks = current_user.tasks.sort_created_at
-#      end
-#        
-#      # switch by status params
-#      case params[:task][:status_search].to_sym
-#      when :waiting then
-#        @tasks = title_tasks.waiting
-#      when :working then
-#        @tasks = title_tasks.working
-#      when :complated then
-#        @tasks = title_tasks.complated
-#      end
-#
-#      # search label or title
-#      unless params[:task][:label_search].blank?
-#        label_name = params[:task][:label_search]
-#        labeled_tasks = Label.search_by_name(label_name)[0].labeling_task
-#        @tasks = labeled_tasks.search_by_user_id(current_user.id)
-#      end
-#
-#    end
+    if params[:sort_expired]
+      @tasks = current_user.tasks.sort_expired
+    elsif params[:sort_priority]
+      tasks_priority = current_user.tasks.sort_priority
+      @tasks = tasks_priority.sort_created_at
+    else
+      # 全件取得
+      # 重複を削除した結果を返却
+      @tasks = @q.result(distinct: true)
+    end
+
+    # pagenation
     @task = @tasks.page(params[:page]).per(3)
   end
 
   def search
-    # title contentで検索
     @q = current_user.tasks.ransack(search_params)
-    # 重複削除
-    @task = @q.result(distinct: true).page(params[:page]).per(3)
+    @task = @q.result.page(params[:page]).per(3)
     render "tasks/index"
   end
-
 
   def new
     @task = Task.new
@@ -120,8 +93,12 @@ class TasksController < ApplicationController
     @task = current_user.tasks.find_by(id: params[:id])
   end
 
+  def set_label
+    @labels = Label.where(user_id:current_user)
+  end
+
   def search_params
-    params.require(:q).permit(:title_cont, :status_eq, :content)
+    params.require(:q).permit(:title_cont, :status_eq, :labeling_label_id_eq, :content)
   end
 
 end
