@@ -121,7 +121,7 @@ class TasksController < ApplicationController
   end
 
   def search_params
-    params.require(:q).permit(:title_cont, :content)
+    params.require(:q).permit(:title_cont, :status_eq, :content)
   end
 
 end

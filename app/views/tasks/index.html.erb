@@ -32,8 +32,11 @@
       <%= f.label :title_cont %>
       <%= f.text_field :title_cont %>
     </div>
+    <div class="form_group">
+      <%= f.label :status_eq %>
+      <%= f.select :status_eq, Task.statuses.map{|k,v| [Task.statuses_i18n[k], v]}, include_blank: true %>
+    </div>
     <%= f.submit %>
-
   <% end %>
 
   <h3><%= t("views.title.label_form")%></h3>

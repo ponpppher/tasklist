@@ -20,6 +20,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bcrypt', '3.1.11'
 
 gem 'ransack'
+gem 'bullet'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
