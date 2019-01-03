@@ -23,14 +23,9 @@
       <%= f.select :priority, Task.priorities_i18n.invert, class:"form-control" %>
     </div>
 
-    <div class ="form-group">
-      <div><%= f.label :label, t('views.detail.label') %></div>
-      <% Label.all.each do | label | %>
-        <%= f.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false },
-        label[:id] %>
-        <label style="background-color: aquamarine"><%= label.name %></label>
-      <% end %>
-    </div>
+    <%= f.collection_check_boxes(:labeling_label_ids, @labels, :id, :name) do|b| %>
+      <%= b.label { b.check_box + b.text} %>
+    <% end %>
 
     <div class ="form-group">
       <%= f.label :limit_datetime, t('views.detail.limit_datetime') %>
