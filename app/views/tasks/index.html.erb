@@ -5,28 +5,6 @@
   <div class="btn btn-default"><%= link_to t('views.title.sort_priority'), tasks_path(sort_priority: "true") %></div>
 
   <h3><%= t("views.title.search_form")%></h3>
-
-  <% if false %>
-    <%= form_with(model:@task , local:true, url:tasks_path, method: :get, class: "form-inline") do |f| %>
-      <div class ="form-group">
-        <%= f.label :title_search, t("views.detail.title"), { class: 'sr-only' } %>
-        <%= f.text_field :title_search, { class: 'form-control', placeholder: 'Title Name' } %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :status_search, t('views.detail.status') %>
-        <%= f.select :status_search, {
-          Task.statuses_i18n[:waiting] => :waiting,
-          Task.statuses_i18n[:working] => :working,
-          Task.statuses_i18n[:complated] => :complated,
-        }, include_blank: true %>
-      </div>
-
-      <%= f.hidden_field :search, value: 'true' %>
-      <%= f.submit t('views.button.search'), class: 'btn btn-default' %>
-    <% end %>
-  <% end %>
-
   <%= search_form_for(@q, url:search_path) do |f| %>
     <p>
       <%= f.label :title_cont, t('views.title.title_cont') %>
@@ -49,18 +27,15 @@
   <% end %>
   <br>
 
-  <% if false %>
-    <%= form_with(model:@task, local:true, url:tasks_path, method: :get) do |f| %>
-      <% Label.all.each do | label | %>
-        <label style="background-color: aquamarine">
-        <%= label.name %>
-        <%= f.radio_button :label_search, label.name %>
-        </label>
-      <% end %>
+  <h3><%= t('views.title.add_label') %></h3>
+  <% @labels.each do |label| %>
+    <span><%= label.name %></span>
+  <% end %>
 
-      <%= f.hidden_field :search, value: 'true' %>
-      <%= f.submit t('views.title.label_form'), class: 'btn btn-default' %>
-    <% end %>
+  <%= form_with(model:@label, local:true, url:labels_path)do |f| %>
+    <%= f.label :name, t('views.title.add_label') %>
+    <%= f.text_field :name %>
+    <%= f.submit %>
   <% end %>
 
   <ul>

@@ -10,6 +10,7 @@ ja:
       title_cont: "タイトルで検索"
       status_eq: "ステータスで検索"
       label_form: "ラベル検索"
+      add_label: "ラベル作成"
       sort_expired: "終了期限でソートする"
       sort_priority: "優先順位でソートする"
       create_user: "ユーザー登録"
