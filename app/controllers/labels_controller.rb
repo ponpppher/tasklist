@@ -1,8 +1,17 @@
 class LabelsController < ApplicationController
-  def new
-    @labels = Label.where(user_id: current_user)
-  end
 
   def create
+    label = current_user.labels.build(label_params)
+
+    if label.save
+      redirect_to root_path
+    else
+      render :new
+    end
+  end
+
+  private
+  def label_params
+    params.require(:label).permit(:name)
   end
 end

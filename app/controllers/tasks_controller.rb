@@ -1,10 +1,11 @@
 class TasksController < ApplicationController
   before_action :set_task, only:[:edit, :update, :show, :destroy]
-  before_action :set_label, only:[:index, :search, :new]
+  before_action :set_label, only:[:index, :search, :new, :edit]
 
   def index
     # all data in each models
     @q = current_user.tasks.ransack(params[:q])
+    @label = Label.new
 
     # branch by sort parameter
     # expired priority and search flag
@@ -13,14 +14,18 @@ class TasksController < ApplicationController
     elsif params[:sort_priority]
       tasks_priority = current_user.tasks.sort_priority
       @tasks = tasks_priority.sort_created_at
-    else
+
       # 全件取得
       # 重複を削除した結果を返却
       @tasks = @q.result(distinct: true)
+    else
+      # tasks in index page
+      @tasks = current_user.tasks.sort_created_at
     end
 
     # pagenation
     @task = @tasks.page(params[:page]).per(3)
+#    @task = @tasks.page(params[:page]).per(3)
   end
 
   def search
@@ -56,10 +61,10 @@ class TasksController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit;end
 
   def update
+#    @task = current_user.tasks.build(task_params)
     if @task.update(task_params)
       redirect_to tasks_path, flash:{notice: t('view.update_task')}
     else
@@ -86,6 +91,7 @@ class TasksController < ApplicationController
       :status,
       :priority,
       :limit_datetime,
+     { :labeling_label_ids=> [] },
     )
   end
 
