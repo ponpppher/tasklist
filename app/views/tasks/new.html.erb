@@ -2,7 +2,7 @@
 
 <% if @task.errors.any? %>
   <div id = "error_explanation">
-    <h2> <%= @task.errors.count %> <%= t('views.errors_found!') %></h2>
+    <h2> <%= @task.errors.count %> <%= t('views.message.errors_found!') %></h2>
     <ul>
       <% @task.errors.full_messages.each do | msg | %>
         <p> <%= msg %></p>

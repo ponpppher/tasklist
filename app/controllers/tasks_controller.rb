@@ -55,7 +55,7 @@ class TasksController < ApplicationController
         end
       end
 
-      redirect_to tasks_path, flash:{notice: t('view.create_task')}
+      redirect_to tasks_path, flash:{notice: t('view.message.create_task')}
     else
       render :new
     end
@@ -66,7 +66,7 @@ class TasksController < ApplicationController
   def update
 #    @task = current_user.tasks.build(task_params)
     if @task.update(task_params)
-      redirect_to tasks_path, flash:{notice: t('view.update_task')}
+      redirect_to tasks_path, flash:{notice: t('view.message.update_task')}
     else
       render :edit
     end
@@ -79,7 +79,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to tasks_path, flash:{notice: t('view.delete_task')}
+    redirect_to tasks_path, flash:{notice: t('view.message.delete_task')}
   end
 
   private
