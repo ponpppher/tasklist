@@ -39,23 +39,10 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = current_user.tasks.build(task_params)
+    @task = current_user.tasks.includes(:user).build(task_params)
 
     if @task.save
-      # insert task id
-      task_id = @task.id
-
-      # チェックされたlabelを取得し、
-      # label毎にtaskと紐づけセーブする
-      unless params[:task][:label_ids].blank?
-        labels = params[:task][:label_ids]
-        labels.each do |label_id|
-          label_ins = Labeling.new({task_id: task_id, label_id: label_id})
-          label_ins.save
-        end
-      end
-
-      redirect_to tasks_path, flash:{notice: t('view.message.create_task')}
+      redirect_to tasks_path, flash:{notice: t('views.message.create_task')}
     else
       render :new
     end
@@ -64,9 +51,8 @@ class TasksController < ApplicationController
   def edit;end
 
   def update
-#    @task = current_user.tasks.build(task_params)
     if @task.update(task_params)
-      redirect_to tasks_path, flash:{notice: t('view.message.update_task')}
+      redirect_to tasks_path, flash:{notice: t('views.message.update_task')}
     else
       render :edit
     end
@@ -79,7 +65,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to tasks_path, flash:{notice: t('view.message.delete_task')}
+    redirect_to tasks_path, flash:{notice: t('views.message.delete_task')}
   end
 
   private
