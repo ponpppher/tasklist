@@ -73,3 +73,7 @@ jobs:
           name: rubocop
           command: bundle exec rubocop
 
+      # run rspec 
+      - run:
+          name: run rspec
+          command: bundle exec bin/rspec spec/models/taskslist.spec.rb
