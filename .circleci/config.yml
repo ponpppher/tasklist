@@ -49,6 +49,12 @@ jobs:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
         
+      - run:
+          name: install client
+          command: |
+            sudo apt-get update
+            sudo apt install -y postgresql-client || true
+
       # Database setup
       - run:
           name: Wait for DB
