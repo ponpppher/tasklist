@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
-  before_action :set_task, only:[:edit, :update, :show, :destroy]
-  before_action :set_label, only:[:index, :search, :new, :edit]
+  before_action :set_task, only: %i[edit update show destroy]
+  before_action :set_label, only: %i[index search new edit]
 
   def index
     # all data in each models
@@ -25,13 +27,13 @@ class TasksController < ApplicationController
 
     # pagenation
     @task = @tasks.page(params[:page]).per(3)
-#    @task = @tasks.page(params[:page]).per(3)
+    #    @task = @tasks.page(params[:page]).per(3)
   end
 
   def search
     @q = current_user.tasks.ransack(search_params)
     @task = @q.result.page(params[:page]).per(3)
-    render "tasks/index"
+    render 'tasks/index'
   end
 
   def new
@@ -42,17 +44,17 @@ class TasksController < ApplicationController
     @task = current_user.tasks.includes(:user).build(task_params)
 
     if @task.save
-      redirect_to tasks_path, flash:{notice: t('views.message.create_task')}
+      redirect_to tasks_path, flash: { notice: t('views.message.create_task') }
     else
       render :new
     end
   end
 
-  def edit;end
+  def edit; end
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_path, flash:{notice: t('views.message.update_task')}
+      redirect_to tasks_path, flash: { notice: t('views.message.update_task') }
     else
       render :edit
     end
@@ -65,7 +67,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to tasks_path, flash:{notice: t('views.message.delete_task')}
+    redirect_to tasks_path, flash: { notice: t('views.message.delete_task') }
   end
 
   private
@@ -77,7 +79,7 @@ class TasksController < ApplicationController
       :status,
       :priority,
       :limit_datetime,
-     { :labeling_label_ids=> [] },
+      labeling_label_ids: []
     )
   end
 
@@ -86,11 +88,10 @@ class TasksController < ApplicationController
   end
 
   def set_label
-    @labels = Label.where(user_id:current_user)
+    @labels = Label.where(user_id: current_user)
   end
 
   def search_params
     params.require(:q).permit(:title_cont, :status_eq, :labeling_label_id_eq)
   end
-
 end

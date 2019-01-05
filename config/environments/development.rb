@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -19,10 +21,9 @@ Rails.application.configure do
     Bullet.add_footer = true
   end
 
-
   # Show full error reports.
   # false -> production error page
-  #config.consider_all_requests_local = false 
+  # config.consider_all_requests_local = false
   config.consider_all_requests_local = true
 
   # Enable/disable caching. By default caching is disabled.
@@ -67,7 +68,6 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.

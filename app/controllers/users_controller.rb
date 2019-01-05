@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   skip_before_action :login_required
   def new
@@ -9,7 +11,7 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
       redirect_to tasks_path
-      #redirect_to user_path(@user.id)
+      # redirect_to user_path(@user.id)
     else
       render :new
     end

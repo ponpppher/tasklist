@@ -67,3 +67,9 @@ jobs:
             bundle exec rake db:migrate
           environment:
             DATABASE_URL: "postgres://postgres@localhost:5432/tasklist_test"
+
+      # run rubocop
+      - run:
+          name: rubocop
+          command: bundle exec rubocop
+

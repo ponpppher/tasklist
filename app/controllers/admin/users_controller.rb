@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Admin::UsersController < ApplicationController
-  before_action :set_user, only:[:edit, :update, :show, :destroy]
+  before_action :set_user, only: %i[edit update show destroy]
   before_action :require_adm
 
   def index
@@ -15,28 +17,25 @@ class Admin::UsersController < ApplicationController
     if @user.save
       redirect_to admin_users_path
     else
-      render "admin/users/new"
+      render 'admin/users/new'
     end
-
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @user.update(user_params)
       redirect_to admin_users_path
     else
-      render "admin/users/edit"
+      render 'admin/users/edit'
     end
   end
 
-  def show
-  end
+  def show; end
 
   def destroy
     admin_num = User.where(admin: true).size
-    if @user.admin? && ( admin_num == 1 )
+    if @user.admin? && (admin_num == 1)
       flash[:notice] = "can't delete admin\nBecause admin must exist 1 user"
     else
       @user.destroy
@@ -59,5 +58,4 @@ class Admin::UsersController < ApplicationController
       render file: "#{Rails.root}/public/404.html", layout: false, status: 404
     end
   end
-
 end
