@@ -12,13 +12,13 @@ jobs:
     docker:
       # specify the version you desire here
        - image: circleci/ruby:2.5.0-node
-         enviroment:
+         environment:
            PGHOST: 127.0.0.1
            PGUSER: postgres
            RAILS_ENV: test
       
        - image: circleci/postgres:9.5-alpine
-         enviroment:
+         environment:
            POGTGRES_USER: postgres
            POGTGRES_DB: tasklist_test
            POGTGRES_PASSWORD: ""
