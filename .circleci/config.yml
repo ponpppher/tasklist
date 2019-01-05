@@ -76,4 +76,4 @@ jobs:
       # run rspec 
       - run:
           name: run rspec
-          command: bundle exec bin/rspec spec/models/taskslist.spec.rb
+          command: bundle exec rspec spec/models/taskslist.spec.rb
