@@ -1,5 +1,6 @@
-class LabelsController < ApplicationController
+# frozen_string_literal: true
 
+class LabelsController < ApplicationController
   def create
     label = current_user.labels.build(label_params)
 
@@ -11,6 +12,7 @@ class LabelsController < ApplicationController
   end
 
   private
+
   def label_params
     params.require(:label).permit(:name)
   end
