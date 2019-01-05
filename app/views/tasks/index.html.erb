@@ -18,8 +18,8 @@
   <h3><%= t("views.title.label_form")%></h3>
   <%= search_form_for(@q, url:search_path) do |f| %>
       <p>
-        <label style="background-color: aquamarine">
         <%= f.label :labeling_label_id_eq, t('views.detail.label') %>
+        <label style="background-color: aquamarine">
         <%= f.radio_button 'labeling_label_id_eq', '', {:checked => true } %> <%= t('views.button.unspecified') %>
         <%= f.collection_radio_buttons :labeling_label_id_eq, @labels, :id, :name %>
       </p>
