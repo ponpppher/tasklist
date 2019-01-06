@@ -20,6 +20,9 @@ class TasksController < ApplicationController
       # 全件取得
       # 重複を削除した結果を返却
       @tasks = @q.result(distinct: true)
+    elsif params[:show_expired]
+      # 5日以内に期限が来ているタスクを表示
+      @tasks = Task.show_expired(current_user)
     else
       # tasks in index page
       @tasks = current_user.tasks.sort_created_at

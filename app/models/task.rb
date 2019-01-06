@@ -13,6 +13,8 @@ class Task < ApplicationRecord
 
   scope :search_by_user_id, ->(id) { where(user_id: id) }
   scope :search_by_title, ->(title) { where('title LIKE?', "%#{title}%") }
+  scope :confirm_expired, -> { where('limit_datetime <= ? ', "#{Time.current.since(5.days).strftime("%Y/%m/%d")}") }
+  scope :without_status_complated, -> { where.not(status: "complated") }
 
   # scope oerderby
   scope :sort_expired, -> { order(limit_datetime: :desc) }
@@ -23,4 +25,9 @@ class Task < ApplicationRecord
 
   has_many :labeling, dependent: :destroy
   has_many :labeling_label, through: :labeling, source: :label
+
+  def self.show_expired(current_user)
+    expired_tasks = current_user.tasks.confirm_expired
+    tasks = expired_tasks.without_status_complated
+  end
 end
