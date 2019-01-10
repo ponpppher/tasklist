@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'groups/index'
   root 'tasks#index'
   resources :tasks
   resources :users, only: %i[new create show]
