@@ -1,5 +1,13 @@
-<h1>Group infomations</h1>
 
+<h3>create new group</h3>
+<%= form_with(model:@group, local:true, url:groups_path ) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.submit %>
+<% end %>
+
+<h1>Group infomations</h1>
 <% @groups.each do |g| %>
   <p>group name: <%= g.name %></p>
   <%= link_to 'edit', edit_group_path(g) %>
