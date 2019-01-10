@@ -11,6 +11,7 @@
 
   <body>
     <% if logged_in? %>
+      <%= link_to 'グループ一覧', tasks_path %>
       <%= link_to "Profile", user_path(current_user.id) %>
       <%= link_to "期限が近いタスク", tasks_path(show_expired: true) %>
       <%= link_to "タスク一覧", tasks_path %>
