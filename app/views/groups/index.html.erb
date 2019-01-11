@@ -1,4 +1,3 @@
-
 <h3>create new group</h3>
 <%= form_with(model:@group, local:true, url:groups_path ) do |f| %>
   <%= f.label :name %>
@@ -10,7 +9,19 @@
 <h1>Group infomations</h1>
 <% @groups.each do |g| %>
   <p>group name: <%= g.name %></p>
-  <%= link_to 'edit', edit_group_path(g) %>
-  <%= link_to 'detail', group_path(g) %>
-  <%= link_to 'delete', group_path(g), method: :delete %>
+  <% if g.owner_id == current_user.id %>
+    <%= link_to 'edit', edit_group_path(g) %>
+    <%= link_to 'delete', group_path(g), method: :delete %>
+  <% end %>
+
+  <% if g.users.present? %>
+    <% if g.owner_id != current_user.id %>
+      <% if g.users.find_by(id: current_user.id) %>
+        <%= link_to 'detail', group_path(g) %>
+        <%= link_to '離脱', group_assign_path(g.id, id: current_user.id), method: :delete %>
+      <% else %>
+        <%= link_to '参加', group_assigns_path(g), method: :post %>
+      <% end %>
+    <% end %>
+  <% end %>
 <% end %>

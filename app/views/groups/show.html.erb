@@ -2,5 +2,23 @@ show page
 <br>
 <br>
 
-<p>id: <%= @group.id %></p>
-<p>name: <%= @group.name %></p>
+<p>group_id: <%= @group.id %></p>
+<p>group_name: <%= @group.name %></p>
+
+<% if @group.present? %>
+  <% @group.users.includes(:tasks).each do |user| %>
+    <p>member: <%= user.name %></p>
+    <ul>
+    <% if user.tasks.present? %>
+      <% user.tasks.each do |task| %>
+        <li>
+          <%= user.name %>_task_title: <%= task.title %><br>
+          content: <%= task.content %><br>
+          limit: <%= task.limit_datetime %>
+        </li>
+        <br>
+      <% end %>
+    <% end %>
+    </ul>
+  <% end %>
+<% end %>

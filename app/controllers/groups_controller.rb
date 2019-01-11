@@ -2,15 +2,21 @@ class GroupsController < ApplicationController
   before_action :set_params, only: %i[show edit destroy]
 
   def index
-    @groups = Group.all
+    @groups = Group.all.includes([:assigns, :users])
     @group = Group.new
   end
 
   def create
     @group = Group.new(group_params)
     @group.owner_id = current_user.id
+    
     if @group.save
-      redirect_to groups_path
+      assign = current_user.assigns.create(group_id: @group.id)
+      if assign.save
+        redirect_to groups_path, notice: "create group success"
+      else
+        render :index
+      end
     else
       render :index
     end
@@ -24,18 +30,23 @@ class GroupsController < ApplicationController
   end
 
   def update
-    @group = Group.new(group_params)
+    @group = Group.new
     @group.owner_id = current_user.id
-    if @group.save
-      redirect_to groups_path
+    if @group.update(group_params)
+      redirect_to groups_path, notice:"update sucess"
     else
       render :edit
     end
   end
 
   def destroy
-    @group.destroy
-    redirect_to groups_path 
+    if @group.owner_id != current_user.id
+      @group.destroy
+      redirect_to groups_path, notice: "ユーザーの登録を削除しました"
+    else
+      flash[:notice] = "can not delete owner user"
+      render :index
+    end
   end
 
   private
