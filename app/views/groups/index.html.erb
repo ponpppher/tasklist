@@ -15,13 +15,13 @@
   <% end %>
 
   <% if g.users.present? %>
-    <% if g.owner_id != current_user.id %>
-      <% if g.users.find_by(id: current_user.id) %>
-        <%= link_to 'detail', group_path(g) %>
+    <% if g.users.find_by(id: current_user.id) %>
+      <%= link_to 'detail', group_path(g) %>
+      <% if g.owner_id != current_user.id %>
         <%= link_to '離脱', group_assign_path(g.id, id: current_user.id), method: :delete %>
-      <% else %>
-        <%= link_to '参加', group_assigns_path(g), method: :post %>
       <% end %>
+    <% else %>
+      <%= link_to '参加', group_assigns_path(g), method: :post %>
     <% end %>
   <% end %>
 <% end %>

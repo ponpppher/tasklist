@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :set_params, only: %i[show edit destroy]
+  before_action :set_params, only: %i[show edit update destroy]
 
   def index
     @groups = Group.all.includes([:assigns, :users])
@@ -30,7 +30,6 @@ class GroupsController < ApplicationController
   end
 
   def update
-    @group = Group.new
     @group.owner_id = current_user.id
     if @group.update(group_params)
       redirect_to groups_path, notice:"update sucess"
@@ -40,7 +39,7 @@ class GroupsController < ApplicationController
   end
 
   def destroy
-    if @group.owner_id != current_user.id
+    if @group.owner_id == current_user.id
       @group.destroy
       redirect_to groups_path, notice: "ユーザーの登録を削除しました"
     else
