@@ -2,26 +2,40 @@
 <%= form_with(model:@group, local:true, url:groups_path ) do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
-
   <%= f.submit %>
 <% end %>
 
 <h1>Group infomations</h1>
-<% @groups.each do |g| %>
-  <p>group name: <%= g.name %></p>
-  <% if g.owner_id == current_user.id %>
-    <%= link_to 'edit', edit_group_path(g) %>
-    <%= link_to 'delete', group_path(g), method: :delete %>
-  <% end %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>group name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @groups.each do |g| %>
+      <tr>
+        <td>
+          <span class="col-md-3"><%= g.name %></span>
+          <span class="col-md-9">
+          <% if g.owner_id == current_user.id %>
+            <div class="btn btn-default"><%= link_to t('views.button.edit'), edit_group_path(g) %></div>
+            <div class="btn btn-default"><%= link_to t('views.button.delete'), group_path(g), method: :delete %></div>
+          <% end %>
 
-  <% if g.users.present? %>
-    <% if g.users.find_by(id: current_user.id) %>
-      <%= link_to 'detail', group_path(g) %>
-      <% if g.owner_id != current_user.id %>
-        <%= link_to '離脱', group_assign_path(g.id, id: current_user.id), method: :delete %>
+          <% if g.users.present? %>
+            <% if g.users.find_by(id: current_user.id) %>
+              <div class="btn btn-default"><%= link_to t('views.button.show'), group_path(g) %></div>
+              <% if g.owner_id != current_user.id %>
+                <div class="btn btn-default"><%= link_to t('views.button.withdrawal'), group_assign_path(g.id, id: current_user.id), method: :delete %></div>
+              <% end %>
+            <% else %>
+              <div class="btn btn-default"><%= link_to t('views.button.assign'), group_assigns_path(g), method: :post %></div>
+            <% end %>
+          <% end %>
+          </span>
+        </td>
+      </tr>
       <% end %>
-    <% else %>
-      <%= link_to '参加', group_assigns_path(g), method: :post %>
-    <% end %>
-  <% end %>
-<% end %>
+    </tbody>
+  </table>

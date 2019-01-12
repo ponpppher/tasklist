@@ -43,6 +43,8 @@ ja:
       delete: "削除"
       show: "詳細"
       search: "検索"
+      assign: "参加"
+      withdrawal: "離脱"
       back: "戻る"
     pagination:
       first: "&laquo; 最初"

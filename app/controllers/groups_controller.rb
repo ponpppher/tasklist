@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
   before_action :set_params, only: %i[show edit update destroy]
+  before_action :owner_authentication, only: %i[edit update destroy]
 
   def index
     @groups = Group.all.includes([:assigns, :users])
@@ -23,7 +24,11 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @group = Group.find(params[:id])
+    if @group.users.find_by(id: current_user)
+      @group
+    else
+      redirect_to groups_path , notice: "only group member can see detail page"
+    end
   end
 
   def edit
@@ -34,18 +39,14 @@ class GroupsController < ApplicationController
     if @group.update(group_params)
       redirect_to groups_path, notice:"update sucess"
     else
+      flash[:notice] = "can not update group infomation"
       render :edit
     end
   end
 
   def destroy
-    if @group.owner_id == current_user.id
-      @group.destroy
-      redirect_to groups_path, notice: "ユーザーの登録を削除しました"
-    else
-      flash[:notice] = "can not delete owner user"
-      render :index
-    end
+    @group.destroy
+    redirect_to groups_path, notice: "ユーザーの登録を削除しました"
   end
 
   private
@@ -56,6 +57,12 @@ class GroupsController < ApplicationController
 
   def set_params
     @group = Group.find(params[:id])
+  end
+
+  def owner_authentication
+    if @group.owner_id != current_user.id
+      redirect_to groups_path, notice: "only owner user can action #{action_name}"
+    end
   end
 
 end

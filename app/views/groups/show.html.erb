@@ -1,24 +1,26 @@
-show page
-<br>
-<br>
-
-<p>group_id: <%= @group.id %></p>
-<p>group_name: <%= @group.name %></p>
+<h4><%= @group.name %> Group</h4>
 
 <% if @group.present? %>
   <% @group.users.includes(:tasks).each do |user| %>
-    <p>member: <%= user.name %></p>
+    <h4><%= user.name%>'s tasks</h4>
     <ul>
-    <% if user.tasks.present? %>
-      <% user.tasks.each do |task| %>
-        <li>
-          <%= user.name %>_task_title: <%= task.title %><br>
-          content: <%= task.content %><br>
-          limit: <%= task.limit_datetime %>
-        </li>
-        <br>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>title</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% if user.tasks.present? %>
+        <% user.tasks.each do |task| %>
+          <tr>
+            <td class="col-md-3"><%= task.title %></td>
+            <td class="col-md-9"><%= link_to t('views.button.show'), task_path(task.id) %></td>
+          </tr>
+        <% end %>
       <% end %>
-    <% end %>
+      </tbody>
+    </table>
     </ul>
   <% end %>
 <% end %>
