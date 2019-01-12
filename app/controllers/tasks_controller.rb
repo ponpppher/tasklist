@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'dotenv'
 
 class TasksController < ApplicationController
   before_action :set_task, only: %i[edit update show destroy]
@@ -22,7 +23,7 @@ class TasksController < ApplicationController
       @tasks = @q.result(distinct: true)
     elsif params[:show_expired]
       # 5日以内に期限が来ているタスクを表示
-      @tasks = Task.show_expired(current_user)
+      @tasks = Task.show_expired(current_user, ENV["EXPIRED_DAY"])
     else
       # tasks in index page
       @tasks = current_user.tasks.sort_created_at
