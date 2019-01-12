@@ -65,6 +65,10 @@ class TasksController < ApplicationController
   end
 
   def show
+    if @task.user_id == current_user.id && @task.unread?
+      @task.read!
+    end
+      
     @labels = @task.labeling_label
     render :show
   end
