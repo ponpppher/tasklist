@@ -24,6 +24,7 @@ gem 'bcrypt', '3.1.11'
 gem 'bullet'
 gem 'ransack'
 
+
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'capybara', '>= 2.15'
@@ -51,4 +52,5 @@ group :test do
   gem 'selenium-webdriver'
 end
 
+gem 'squasher'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

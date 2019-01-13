@@ -15,7 +15,7 @@
         <% user.tasks.each do |task| %>
           <tr>
             <td class="col-md-3"><%= task.title %></td>
-            <td class="col-md-9"><%= link_to t('views.button.show'), task_path(task.id) %></td>
+            <td class="col-md-9"><%= link_to t('views.button.show'), task_path(id: task.id, name:"group") %></td>
           </tr>
         <% end %>
       <% end %>
