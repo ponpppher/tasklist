@@ -23,6 +23,11 @@
       <%= f.select :priority, Task.priorities_i18n.invert, class:"form-control" %>
     </div>
 
+    <div class="form_group">
+      <%= f.label :attached_file %>
+      <%= f.file_field :attached_file %>
+    </div>
+
     <%= f.collection_check_boxes(:labeling_label_ids, @labels, :id, :name) do|b| %>
       <%= b.label { b.check_box + b.text} %>
     <% end %>

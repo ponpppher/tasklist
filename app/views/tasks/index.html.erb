@@ -28,15 +28,12 @@
   <br>
 
   <h3><%= t('views.title.add_label') %></h3>
-  <% @labels.each do |label| %>
-    <span><%= label.name %></span>
-  <% end %>
-
   <%= form_with(model:@label, local:true, url:labels_path) do |f| %>
     <%= f.label :name, t('views.title.add_label') %>
     <%= f.text_field :name %>
     <%= f.submit %>
   <% end %>
+  <br>
 
   <ul>
   <% @task.each do |task| %>
