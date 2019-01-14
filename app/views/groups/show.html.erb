@@ -1,0 +1,26 @@
+<h4><%= @group.name %> Group</h4>
+
+<% if @group.present? %>
+  <% @group.users.includes(:tasks).each do |user| %>
+    <h4><%= user.name%>'s tasks</h4>
+    <ul>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>title</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% if user.tasks.present? %>
+        <% user.tasks.each do |task| %>
+          <tr>
+            <td class="col-md-3"><%= task.title %></td>
+            <td class="col-md-9"><%= link_to t('views.button.show'), task_path(id: task.id, name:"group") %></td>
+          </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+    </table>
+    </ul>
+  <% end %>
+<% end %>

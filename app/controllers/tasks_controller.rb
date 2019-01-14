@@ -83,12 +83,17 @@ class TasksController < ApplicationController
       :status,
       :priority,
       :limit_datetime,
+      :name,
       labeling_label_ids: []
     )
   end
 
   def set_task
-    @task = current_user.tasks.find_by(id: params[:id])
+    if params[:name] == "group"
+      @task = Task.find_by(id: params[:id])
+    else
+      @task = current_user.tasks.find_by(id: params[:id])
+    end
   end
 
   def set_label
