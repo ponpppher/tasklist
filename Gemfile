@@ -29,8 +29,6 @@ gem 'ransack'
 gem 'mini_magick'
 gem 'aws-sdk-s3'
 
-
-
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'capybara', '>= 2.15'
