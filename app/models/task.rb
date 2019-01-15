@@ -24,6 +24,8 @@ class Task < ApplicationRecord
   belongs_to :user
 
   has_one_attached :attached_file
+  has_one_attached :image
+#  has_many_attached :images
   has_many :labeling, dependent: :destroy
   has_many :labeling_label, through: :labeling, source: :label
 

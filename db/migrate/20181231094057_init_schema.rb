@@ -1,4 +1,4 @@
-class InitSchema < ActiveRecord::Migration
+class InitSchema < ActiveRecord::Migration[5.2]
   def up
     # These are extensions that must be enabled in order to support this database
     enable_extension "plpgsql"
@@ -14,7 +14,6 @@ class InitSchema < ActiveRecord::Migration
       t.string "name"
       t.bigint "user_id"
       t.index ["user_id"], name: "index_labels_on_user_id"
-#      add_reference :labels, :user, foreign_key: true
     end
     create_table "tasks" do |t|
       t.string "title", null: false

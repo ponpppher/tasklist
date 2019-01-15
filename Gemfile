@@ -7,7 +7,7 @@ ruby '2.5.0'
 
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
-gem 'rails', '~> 5.2.1'
+gem 'rails', '~> 5.2.2'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 
@@ -21,8 +21,14 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'bcrypt', '3.1.11'
 
+gem 'dotenv-rails'
+
 gem 'bullet'
 gem 'ransack'
+
+gem 'mini_magick'
+gem 'aws-sdk-s3'
+
 
 
 group :development, :test do
