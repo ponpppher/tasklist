@@ -46,7 +46,7 @@ class GroupsController < ApplicationController
 
   def destroy
     @group.destroy
-    redirect_to groups_path, notice: "ユーザーの登録を削除しました"
+    redirect_to groups_path, notice: "delete group success"
   end
 
   private
