@@ -45,6 +45,7 @@ class TasksController < ApplicationController
   end
 
   def create
+    @labels = current_user.labels
     @task = current_user.tasks.includes(:user).build(task_params)
 
     if @task.save
