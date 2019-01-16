@@ -23,6 +23,7 @@ ja:
       name: "ユーザー名"
       email: "メールアドレス"
       admin: "管理者"
+      profile_image: "プロフィール画像"
       task_count: "登録タスク数"
     detail:
       title: "タスク名"

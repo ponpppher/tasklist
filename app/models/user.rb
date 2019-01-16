@@ -9,6 +9,8 @@ class User < ApplicationRecord
                     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i },
                     uniqueness: true
 
+  has_one_attached :image
+
   has_many :tasks, dependent: :destroy
   has_many :labels, dependent: :destroy
 
