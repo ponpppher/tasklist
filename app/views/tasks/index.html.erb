@@ -66,6 +66,19 @@
       </tbody>
     </table>
   <% end %>
+  <h3><%= t("views.title.calendar")%></h3>
+  <div>
+    <%= month_calendar(attribute: :limit_datetime, events:@calendar_task) do |date, tasks| %>
+      <%= date %>
+      <% tasks.each do |task| %>
+        <div class="limit_task">
+        期限タスク: <%= task.title %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
   </ul>
+
+
   <%= paginate @task %>
 </div>
