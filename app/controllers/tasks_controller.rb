@@ -9,6 +9,8 @@ class TasksController < ApplicationController
     # all data in each models
     @q = current_user.tasks.ransack(params[:q])
     @label = Label.new
+
+    # to display calendar's tasks
     @calendar_task = current_user.tasks
 
     # branch by sort parameter

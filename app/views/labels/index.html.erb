@@ -1,2 +1,30 @@
-<h1>Labels#index</h1>
-<p>Find me in app/views/labels/index.html.erb</p>
+<h3>ラベル一覧</h3>
+<ul>
+  <table>
+    <thead>
+      <tr>
+        <div class="col-md-4">
+          <th>ラベル名</th>
+        </div>
+        <div class="col-md-8">
+        <th>削除</th>
+      </tr>
+    </thead>
+    <% @labels.each do |label| %>
+      <tbody>
+        <tr>
+          <div class="col-md-4">
+            <td><%= label.name %></td>
+          </div>
+          <div class="col-md-8">
+            <td><%= link_to "削除", label_path(label.id), method: :delete %>
+          </div>
+        </tr>
+      </tbody>
+    <% end %>
+  </table>
+</ul>
+
+
+<h3>chart</h3>
+<%= column_chart @chart_data %>

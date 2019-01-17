@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :tasks
   resources :users, only: %i[new create show]
   resources :sessions, only: %i[new create destroy]
-  resources :labels, only: %i[new create destroy]
+  resources :labels, only: %i[index new create destroy]
   resources :groups do
     resources :assigns, only: %i[create destroy]
   end

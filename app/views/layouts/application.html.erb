@@ -7,10 +7,12 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag '//code.highcharts.com/highcharts.js', 'chartkick' %>
   </head>
 
   <body>
     <% if logged_in? %>
+      <%= link_to 'ラベル一覧', labels_path %>
       <%= link_to 'グループ一覧', groups_path %>
       <%= link_to "Profile", user_path(current_user.id) %>
       <%= link_to "期限が近いタスク", tasks_path(show_expired: true) %>
