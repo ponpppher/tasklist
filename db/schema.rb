@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 2019_01_14_052937) do
     t.integer "priority", limit: 2, default: 1, null: false
     t.bigint "user_id"
     t.integer "status", limit: 2, default: 0, null: false
+    t.boolean "read", default: false
     t.index ["content"], name: "index_tasks_on_content"
     t.index ["priority"], name: "index_tasks_on_priority"
     t.index ["status"], name: "index_tasks_on_status"

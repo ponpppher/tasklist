@@ -28,7 +28,7 @@
       <%= f.file_field :image %>
     </div>
 
-    <%= f.collection_check_boxes(:labeling_label_ids, @labels, :id, :name) do|b| %>
+    <%= f.collection_check_boxes(:labeling_label_ids, @labels, :id, :name) do |b| %>
       <%= b.label { b.check_box + b.text} %>
     <% end %>
 

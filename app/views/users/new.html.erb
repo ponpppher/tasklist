@@ -11,22 +11,62 @@
   </div>
 <% end %>
 
-<%= form_with(model:@user, local:true) do |f| %>
-  
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-
-  <%= f.label :email %>
-  <%= f.email_field :email %>
-
-  <%= f.label :image %>
-  <%= f.file_field :image %>
-
-  <%= f.label :password %>
-  <%= f.password_field :password %>
-
-  <%= f.label :password %>
-  <%= f.password_field :password_confirmation %>
-
-  <%= f.submit %>
-<% end %>
+<ul>
+  <table>
+    <tbody>
+      <%= form_with(model:@user, local:true) do |f| %>
+        
+        <tr>
+          <th class="col-md-2">
+            <%= f.label :name %>
+          </th>
+          <td class="col-md-10">
+            <%= f.text_field :name %>
+          </td>
+        </tr>
+        
+        <tr>
+          <th class="col-md-2">
+            <%= f.label :email %>
+          </th>
+          <td class="col-md-10">
+            <%= f.email_field :email %>
+          </td>
+        </tr>
+        
+        <tr>
+          <th class="col-md-2">
+            <%= f.label :image, "プロフィール画像"%>
+          </th>
+          <td class="col-md-10">
+            <%= f.file_field :image %>
+          </td>
+        </tr>
+        
+        <tr>
+          <th class="col-md-2">
+            <%= f.label :password %>
+          </th>
+          <td class="col-md-10">
+            <%= f.password_field :password %>
+          </td>
+        </tr>
+        
+        <tr>
+          <th class="col-md-2">
+            <%= f.label :password_confirmation %>
+          </th>
+          <td class="col-md-10">
+            <%= f.password_field :password_confirmation %>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="col-md-2">
+            <%= f.submit %>
+          </td>
+        </tr>
+        <% end %>
+    </tbody>
+  </table>
+</ul>

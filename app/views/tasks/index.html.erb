@@ -40,7 +40,15 @@
     <table class="table table-hover">
       <tbody>
         <tr>
-          <th class="col-md-2"><%= t('views.detail.title') %></th><td class="title"><%= task.title %></td>
+          <th class="col-md-2"><%= t('views.detail.title') %></th>
+          <td class="title">
+            <%= task.title %>
+            <% if task.read? %>
+              <span class="badge badge-success" style="background-color: mediumblue"><%= task.read %></span>
+            <% else %>
+              <span class="badge badge-danger" style="background-color: tomato"><%= task.read %></span>
+            <% end %>
+          </td>
         </tr>
         <tr>
           <th class="col-md-2"><%= t('views.detail.content') %></th><td class="content"><%= task.content %></td>
