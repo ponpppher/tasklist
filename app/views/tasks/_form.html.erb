@@ -23,9 +23,11 @@
       <%= f.select :priority, Task.priorities_i18n.invert, class:"form-control" %>
     </div>
 
-    <%= f.collection_check_boxes(:labeling_label_ids, @labels, :id, :name) do|b| %>
-      <%= b.label { b.check_box + b.text} %>
-    <% end %>
+    <div class="form_group">
+      <%= f.collection_check_boxes(:labeling_label_ids, @labels, :id, :name) do|b| %>
+        <%= b.label { b.check_box + b.text} %>
+      <% end %>
+    </div>
 
     <div class ="form-group">
       <%= f.label :limit_datetime, t('views.detail.limit_datetime') %>

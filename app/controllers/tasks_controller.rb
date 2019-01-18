@@ -45,6 +45,7 @@ class TasksController < ApplicationController
   end
 
   def create
+    @labels = current_user.labels
     @task = current_user.tasks.includes(:user).build(task_params)
 
     if @task.save
@@ -65,6 +66,10 @@ class TasksController < ApplicationController
   end
 
   def show
+    if @task.user_id == current_user.id && @task.unread?
+      @task.read!
+    end
+      
     @labels = @task.labeling_label
     render :show
   end
