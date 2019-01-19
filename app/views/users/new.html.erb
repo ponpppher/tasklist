@@ -13,9 +13,8 @@
 
 <ul>
   <table>
-    <tbody>
-      <%= form_with(model:@user, local:true) do |f| %>
-        
+    <%= form_with(model:@user, local:true) do |f| %>
+      <tbody>
         <tr>
           <th class="col-md-2">
             <%= f.label :name %>
@@ -62,11 +61,9 @@
         </tr>
         
         <tr>
-          <td class="col-md-2">
-            <%= f.submit %>
-          </td>
+          <td><%= f.submit %></td>
         </tr>
-        <% end %>
-    </tbody>
+      </tbody>
+    <% end %>
   </table>
 </ul>
