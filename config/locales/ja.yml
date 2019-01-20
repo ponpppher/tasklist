@@ -23,6 +23,7 @@ ja:
       name: "ユーザー名"
       email: "メールアドレス"
       admin: "管理者"
+      profile_image: "プロフィール画像"
       task_count: "登録タスク数"
     detail:
       title: "タスク名"
@@ -33,6 +34,7 @@ ja:
       created_at: "作成日"
       updated_at: "更新日"
       limit_datetime: "終了期限"
+      file: "添付ファイル"
     state:
       high_priority: "高"
       middle_priority: "中"

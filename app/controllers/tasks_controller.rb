@@ -89,6 +89,7 @@ class TasksController < ApplicationController
       :priority,
       :limit_datetime,
       :name,
+      :image,
       labeling_label_ids: []
     )
   end

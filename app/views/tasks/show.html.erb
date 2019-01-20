@@ -35,6 +35,9 @@
         <th class="com-md-2"><%= t('views.detail.limit_datetime') %></th><td><%= @task.limit_datetime %></td>
       </tr>
       <tr>
+        <th class="com-md-2"><%= t('views.detail.file') %></th><td><%= link_to "download_link", @task.image if @task.image.attached? %></td>
+      </tr>
+      <tr>
         <td class="btn btn-default"><%= link_to t('views.button.back'), root_path %></td>
       </tr>
     </tbody>
