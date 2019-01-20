@@ -29,12 +29,13 @@ gem 'ransack'
 gem 'mini_magick'
 gem 'aws-sdk-s3'
 
+gem 'faker'
+
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'capybara', '>= 2.15'
   gem 'database_cleaner'
   gem 'factory_bot_rails'
-  gem 'faker'
   gem 'launchy'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
