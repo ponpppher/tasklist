@@ -14,6 +14,7 @@ ja:
       sort_expired: "終了期限でソートする"
       sort_priority: "優先順位でソートする"
       create_user: "ユーザー登録"
+      calendar: "期限カレンダー"
     message:
       create_task: "新規タスク作成しました"
       update_task: "タスクを更新しました"

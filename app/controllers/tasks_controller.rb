@@ -10,6 +10,9 @@ class TasksController < ApplicationController
     @q = current_user.tasks.ransack(params[:q])
     @label = Label.new
 
+    # to display calendar's tasks
+    @calendar_task = current_user.tasks
+
     # branch by sort parameter
     # expired priority and search flag
     if params[:sort_expired]

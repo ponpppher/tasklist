@@ -16,4 +16,18 @@ class User < ApplicationRecord
 
   has_many :assigns, dependent: :destroy
   has_many :groups, through: :assigns, source: :group
+
+  def self.ag(inp_user)
+    user_labels = inp_user.labels
+    label_syms = user_labels.pluck(:name).map{|key| [key.to_sym, 0]}.to_h
+    
+    user_tasks = inp_user.tasks.includes([:labeling, :labeling_label])
+
+    user_tasks.each do | task |
+      task.labeling_label.each do | label|
+        label_syms[label.name.to_sym] += 1
+      end
+    end
+    label_syms
+  end
 end
