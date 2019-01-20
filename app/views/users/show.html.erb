@@ -2,5 +2,11 @@
 <ul>
   <p><%= t('views.user_detail.name') %>: <%= @user.name %></p>
   <p><%= t('views.user_detail.email') %>: <%= @user.email %></p>
+  <p><%= t('views.user_detail.profile_image') %>: 
+  <% if @user.image.attached? %>
+    <%= image_tag @user.image.variant(resize: "100x100"), class: "trim_image" %>
+  <% end %>
+
+  </p>
 </ul>
 <div class="btn btn-default"><%= link_to t('views.button.back'), tasks_path %></div>

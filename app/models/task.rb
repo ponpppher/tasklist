@@ -10,6 +10,7 @@ class Task < ApplicationRecord
 
   enum status: { waiting: 0, working: 1, complated: 2 }
   enum priority: { low: 0, middle: 1, high: 2 }
+  enum read: { read: true, unread: false }
 
   scope :search_by_user_id, ->(id) { where(user_id: id) }
   scope :search_by_title, ->(title) { where('title LIKE?', "%#{title}%") }
@@ -23,6 +24,7 @@ class Task < ApplicationRecord
 
   belongs_to :user
 
+  has_one_attached :image
   has_many :labeling, dependent: :destroy
   has_many :labeling_label, through: :labeling, source: :label
 

@@ -1,7 +1,14 @@
 <div class="container">
   <table class="table">
     <thead>
-      <h1><%= t('views.title.task_detail_page') %></h1>
+      <h1>
+        <%= t('views.title.task_detail_page') %>
+        <% if @task.read? %>
+          <span class="badge badge-success" style="background-color: mediumblue"><%= @task.read %></span>
+        <% else %>
+          <span class="badge badge-danger" style="background-color: tomato"><%= @task.read %></span>
+        <% end %>
+      </h1>
     </thead>
     <tbody>
       <tr>
@@ -26,6 +33,9 @@
       </tr>
       <tr>
         <th class="com-md-2"><%= t('views.detail.limit_datetime') %></th><td><%= @task.limit_datetime %></td>
+      </tr>
+      <tr>
+        <th class="com-md-2"><%= t('views.detail.file') %></th><td><%= link_to "download_link", @task.image if @task.image.attached? %></td>
       </tr>
       <tr>
         <td class="btn btn-default"><%= link_to t('views.button.back'), root_path %></td>
