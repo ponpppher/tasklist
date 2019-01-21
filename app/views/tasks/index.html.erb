@@ -28,22 +28,27 @@
   <br>
 
   <h3><%= t('views.title.add_label') %></h3>
-  <% @labels.each do |label| %>
-    <span><%= label.name %></span>
-  <% end %>
-
   <%= form_with(model:@label, local:true, url:labels_path) do |f| %>
     <%= f.label :name, t('views.title.add_label') %>
     <%= f.text_field :name %>
     <%= f.submit %>
   <% end %>
+  <br>
 
   <ul>
   <% @task.each do |task| %>
     <table class="table table-hover">
       <tbody>
         <tr>
-          <th class="col-md-2"><%= t('views.detail.title') %></th><td class="title"><%= task.title %></td>
+          <th class="col-md-2"><%= t('views.detail.title') %></th>
+          <td class="title">
+            <%= task.title %>
+            <% if task.read? %>
+              <span class="badge badge-success" style="background-color: mediumblue"><%= task.read %></span>
+            <% else %>
+              <span class="badge badge-danger" style="background-color: tomato"><%= task.read %></span>
+            <% end %>
+          </td>
         </tr>
         <tr>
           <th class="col-md-2"><%= t('views.detail.content') %></th><td class="content"><%= task.content %></td>
