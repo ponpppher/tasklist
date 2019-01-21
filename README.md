@@ -38,6 +38,9 @@ sudo service postgresql start
 rails s
 ```
 
+#### heroku
+https://limitless-plains-15943.herokuapp.com
+
 #### 各種バージョンなど
 
 - rails (5.2.1)

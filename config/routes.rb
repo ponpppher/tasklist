@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   end
   get 'search', to: 'tasks#search'
 
+  mount LetterOpenerWeb::Engine, at: "/letter_opner" if Rails.env.development?
+
   namespace :admin do
     resources :users
   end

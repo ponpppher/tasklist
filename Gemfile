@@ -24,7 +24,7 @@ gem 'bcrypt', '3.1.11'
 gem 'bullet'
 gem 'ransack'
 
-gem 'dotenv'
+gem 'dotenv-rails'
 
 gem 'simple_calendar'
 
@@ -42,6 +42,7 @@ group :development, :test do
   gem 'spring'
   gem 'spring-commands-rspec'
 
+
   gem 'rubocop', '~> 0.55.0'
 end
 
@@ -50,6 +51,8 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
+
+  gem 'letter_opener_web'
 end
 
 group :test do
