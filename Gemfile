@@ -26,6 +26,7 @@ gem 'dotenv-rails'
 gem 'bullet'
 gem 'ransack'
 
+gem 'dotenv-rails'
 gem 'mini_magick'
 gem 'aws-sdk-s3'
 
@@ -46,6 +47,7 @@ group :development, :test do
   gem 'spring'
   gem 'spring-commands-rspec'
 
+
   gem 'rubocop', '~> 0.55.0'
 end
 
@@ -54,6 +56,8 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
+
+  gem 'letter_opener_web'
 end
 
 group :test do

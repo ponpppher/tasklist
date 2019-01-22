@@ -32,4 +32,9 @@ class Task < ApplicationRecord
     expired_tasks = current_user.tasks.confirm_expired(expired_day)
     tasks = expired_tasks.without_status_complated
   end
+
+  def self.expired_task_all(expired_day)
+    tasks = Task.all.without_status_complated
+    expired_tasks = tasks.confirm_expired(expired_day)
+  end
 end
